@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from app.schemas.findings import SeverityLevel, VulnerabilityFinding
 
 
-def test_valid_vulnerability_finding():
+def test_valid_vulnerability_finding() -> None:
     """Test that the model accepts valid data correctly."""
     finding = VulnerabilityFinding(
         cwe_id="CWE-89",
@@ -21,7 +21,7 @@ def test_valid_vulnerability_finding():
     assert finding.is_false_positive is False  # Default must be False
 
 
-def test_invalid_confidence_raises_error():
+def test_invalid_confidence_raises_error() -> None:
     """Test that Pydantic blocks confidence greater than 1.0."""
     with pytest.raises(ValidationError):
         VulnerabilityFinding(
