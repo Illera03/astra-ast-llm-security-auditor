@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+poetry.lock
+
+# Entorno y Configuración
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
