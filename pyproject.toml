@@ -34,3 +34,10 @@ ignore = []
 python_version = "3.11"
 strict = true
 ignore_missing_imports = true
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.15.15,<0.16.0)",
+    "mypy (>=2.1.0,<3.0.0)",
+    "pytest-asyncio (>=1.4.0,<2.0.0)"
+]
