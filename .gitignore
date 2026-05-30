@@ -8,10 +8,13 @@ __pycache__/
 .venv/
 poetry.lock
 
-# Entorno y Configuración
+# Environment and Configuration
 .env
 .env.local
 
 # IDEs
 .vscode/
 .idea/
+
+# Cache and Logs
+.astra_cache.db
