@@ -36,9 +36,16 @@ class ASTSecurityVisitor(ast.NodeVisitor):
 
             # Check if any argument is dynamic (variable, f-string, or concatenation)
             for arg in node.args:
+                # Direct dynamic argument
                 if isinstance(arg, (ast.Name, ast.JoinedStr, ast.BinOp)):
                     is_dynamic = True
                     break
+                # Dynamic argument inside a list or tuple (e.g. ["ls", folder])
+                elif isinstance(arg, (ast.List, ast.Tuple)):
+                    for element in arg.elts:
+                        if isinstance(element, (ast.Name, ast.JoinedStr, ast.BinOp)):
+                            is_dynamic = True
+                            break
 
             # If dynamic, it's a potential vulnerability for the LLM to validate
             if is_dynamic:
@@ -73,7 +80,8 @@ class CodeParser:
         """
         try:
             tree = ast.parse(self.source_code)
-        except SyntaxError:
+        except SyntaxError as e:
+            print(f"[!] Error de sintaxis en el archivo analizado: {e}")
             return []
 
         visitor = ASTSecurityVisitor(self.file_path)
