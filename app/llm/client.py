@@ -4,6 +4,8 @@ from typing import Any
 import httpx
 from pydantic import BaseModel, ValidationError
 
+from app.config import settings
+
 
 class LLMResponse(BaseModel):
     """Schema for the expected JSON response from the LLM."""
@@ -19,7 +21,9 @@ class OllamaClient:
     """
 
     def __init__(
-        self, model_name: str = "llama3", base_url: str = "http://localhost:11434"
+        self,
+        model_name: str = settings.MODEL_NAME,
+        base_url: str = settings.OLLAMA_HOST,
     ) -> None:
         self.model_name = model_name
         self.base_url = base_url
