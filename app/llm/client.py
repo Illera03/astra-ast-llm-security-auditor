@@ -4,6 +4,8 @@ from typing import Any
 import httpx
 from pydantic import BaseModel, ValidationError
 
+from app.config import settings
+
 
 class LLMResponse(BaseModel):
     """Schema for the expected JSON response from the LLM."""
@@ -19,7 +21,9 @@ class OllamaClient:
     """
 
     def __init__(
-        self, model_name: str = "llama3", base_url: str = "http://localhost:11434"
+        self,
+        model_name: str = settings.MODEL_NAME,
+        base_url: str = settings.OLLAMA_HOST,
     ) -> None:
         self.model_name = model_name
         self.base_url = base_url
@@ -34,9 +38,15 @@ class OllamaClient:
         system_prompt = (
             "You are an expert cybersecurity auditor. "
             f"Analyze the following code snippet for {cwe_id}. "
+            "CRITICAL RULE FOR CWE-78: If the function uses a list of arguments "
+            "(e.g., ['tar', '-czf', ...]) instead of a single concatenated string, "
+            "and 'shell=True' is NOT explicitly present, it is safe from command "
+            "injection. In that case, you MUST mark it as a False Positive "
+            " (is_exploitable: false). "
             "You must respond ONLY in valid JSON format with three keys: "
             "'is_exploitable' (boolean), 'confidence' (float 0.0 to 1.0), "
-            "and 'exploit_path' (string explaining the data flow). "
+            "and 'exploit_path' (string explaining the data flow or why it is "
+            "a false positive). "
             "Do not include markdown formatting or any extra text."
         )
 
