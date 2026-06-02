@@ -4,8 +4,13 @@ import os
 import sys
 
 from app.core.cache import AnalysisCache
+from app.core.scoring import ScoringEngine
 from app.llm.client import OllamaClient
+from app.logging_config import configure_logging
 from app.scanner import SecurityScanner
+
+# Initialize logging configuration
+configure_logging()
 
 
 async def scan_file(file_path: str) -> None:
@@ -19,6 +24,7 @@ async def scan_file(file_path: str) -> None:
     scanner = SecurityScanner()
     cache = AnalysisCache()
     llm_client = OllamaClient()
+    scoring_engine = ScoringEngine()
 
     # Static Analysis Phase (AST)
     print("[*] Phase 1: Static AST parsing...")
@@ -33,7 +39,10 @@ async def scan_file(file_path: str) -> None:
     # Semantic Validation Phase (LLM + Cache)
     print("[*] Phase 2: Semantic analysis via LLM...\n")
 
-    for finding, context in static_results:
+    for finding in static_results:
+        # Extract the code context that the AST parser has already isolated natively
+        context = finding.code_snippet
+
         print(f"--- Analyzing {finding.cwe_id} at line {finding.line_number} ---")
 
         # Check cryptographic cache first
@@ -53,17 +62,26 @@ async def scan_file(file_path: str) -> None:
                 print("[!] LLM failed to return a valid response. Skipping.\n")
                 continue
 
-        # Update finding with LLM insights
-        finding.confidence = llm_response.confidence
-        finding.exploit_path = llm_response.exploit_path
-        finding.is_false_positive = not llm_response.is_exploitable
+        # Transform LLM confidence into a Risk Score
+        # (If LLM says NOT exploitable with 0.9 confidence, the risk is 0.1)
+        llm_risk = (
+            llm_response.confidence
+            if llm_response.is_exploitable
+            else (1.0 - llm_response.confidence)
+        )
+
+        # Calculate hybrid final score using pre-calculated AST metrics
+        final_score, is_critical = scoring_engine.evaluate(
+            finding=finding, llm_risk_score=llm_risk
+        )
 
         # Print final verdict
-        if finding.is_false_positive:
-            print(f"[OK] False Positive Confirmed (Conf: {finding.confidence})")
+        if not is_critical:
+            print(f"[OK] Filtered! (Score: {final_score} < 0.65)")
+            print(f"     Reason: {llm_response.exploit_path}")
         else:
-            print(f"[VULN] Confirmed Vulnerability! (Conf: {finding.confidence})")
-            print(f"       Path: {finding.exploit_path}")
+            print(f"[VULN] Confirmed Vulnerability! (Score: {final_score} >= 0.65)")
+            print(f"       Path: {llm_response.exploit_path}")
         print()
 
 
