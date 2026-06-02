@@ -22,6 +22,7 @@ class VulnerabilityFinding(BaseModel):
     # 2. Static Analysis (AST)
     file_path: str = Field(..., description="Path of the analyzed file")
     line_number: int = Field(..., description="Line of the suspicious node")
+    code_snippet: str = Field(default="", description="Isolated code context")
     node_type: str = Field(..., description="AST node type (e.g., Call)")
     severity: SeverityLevel = Field(..., description="Base static severity")
 
@@ -30,8 +31,9 @@ class VulnerabilityFinding(BaseModel):
     confidence: float = Field(..., ge=0.0, le=1.0, description="LLM confidence (0-1)")
 
     # 4. Hybrid Engine (Calculated post-inference)
-    context_complexity: float | None = Field(
-        default=None, description="Cyclomatic complexity"
+    heuristic_score: float = Field(
+        default=0.0, description="Mapped score from severity"
     )
+    context_complexity: float = Field(default=0.2, description="Cyclomatic complexity")
     hybrid_score: float | None = Field(default=None, description="Final risk score")
     is_false_positive: bool = Field(default=False, description="Fails 0.65 threshold")
