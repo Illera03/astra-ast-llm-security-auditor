@@ -1,6 +1,8 @@
 """Centralized logging configuration using structlog."""
+
 import logging
 import sys
+from typing import cast
 
 import structlog
 
@@ -35,4 +37,4 @@ def configure_logging() -> None:
 
 def get_logger(name: str) -> structlog.BoundLogger:
     """Get a configured logger instance."""
-    return structlog.get_logger(name)
+    return cast(structlog.BoundLogger, structlog.get_logger(name))

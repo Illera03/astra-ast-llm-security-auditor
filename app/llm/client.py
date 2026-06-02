@@ -72,7 +72,7 @@ class OllamaClient:
                 raw_response = response.json().get("response", "").strip()
 
                 # Robust extraction: Find the first JSON block (between braces)
-                match = re.search(r'\{.*\}', raw_response, re.DOTALL)
+                match = re.search(r"\{.*\}", raw_response, re.DOTALL)
 
                 if not match:
                     logger.warning(

@@ -3,6 +3,7 @@
 Script to clear the ASTra analysis cache.
 Useful for testing the same file repeatedly without cache hits.
 """
+
 import os
 import sys
 
