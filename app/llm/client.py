@@ -39,20 +39,26 @@ class OllamaClient:
         Sends the code context to the LLM and parses the JSON response.
         Returns None if the LLM hallucinates or the connection fails.
         """
-        system_prompt = (
-            "You are an expert cybersecurity auditor. "
-            f"Analyze the following isolated function for {cwe_id}. "
-            "CRITICAL RULE FOR CWE-78: If the function uses a list of arguments "
-            "(e.g., ['tar', '-czf', ...]) instead of a single concatenated string, "
-            "and 'shell=True' is NOT explicitly present, it is safe from command "
-            "injection. In that case, you MUST mark it as a False Positive "
-            " (is_exploitable: false). "
-            "You must respond ONLY in valid JSON format with three keys: "
-            "'is_exploitable' (boolean), 'confidence' (float 0.0 to 1.0), "
-            "and 'exploit_path' (string explaining the data flow or why it is "
-            "a false positive). "
-            "Do not include markdown formatting or any extra text."
-        )
+        system_prompt = f"""
+        You are a strict security auditor. Analyze this Python code for {cwe_id} 
+        (Command Injection).
+        
+        STRICT EVALUATION RULES:
+        1. Does the code import 'subprocess' or 'os'?
+        2. Does the subprocess call explicitly contain 'shell=True'? 
+        If YES, it is highly likely to be vulnerable.
+        3. Are the arguments passed to the command dynamically constructed 
+        (e.g., f-strings, concatenation) with user input?
+        4. If 'shell=True' is present and arguments are dynamic, it IS exploitable.
+
+        RESPOND STRICTLY IN THIS JSON FORMAT:
+        {{
+            "is_exploitable": true or false,
+            "confidence": 0.9,
+            "exploit_path": "Explain exactly if shell=True is present and if arguments 
+            are dynamic."
+        }}
+        """
 
         payload: dict[str, Any] = {
             "model": self.model_name,
