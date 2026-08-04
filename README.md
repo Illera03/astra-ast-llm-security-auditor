@@ -9,121 +9,288 @@ ASTra combines static code analysis with LLM-based reasoning to detect security 
 ## 📋 Prerequisites
 
 - **Python 3.11+**
-- **Poetry** (Python dependency manager)
-- **Ollama** (local LLM runtime)
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Automated Setup - macOS/Linux only)
 
-### Option 1: Automated Setup (Recommended)
-
-Run the setup script that will install all dependencies and configure the environment:
+For macOS and Linux users, you can use the automated setup script:
 
 ```bash
 ./scripts/setup.sh
 ```
 
 This script will:
-1. Check for Ollama installation (installs if missing on macOS)
-2. Pull the default model (`qwen2.5-coder:1.5b`)
-3. Install Python dependencies via Poetry
-4. Create `.env` file from template
-5. Run verification checks
+1. Check Python version
+2. Install Poetry (if missing)
+3. Install Ollama (if missing on macOS)
+4. Start Ollama service
+5. Pull the default model (`qwen2.5-coder:1.5b`)
+6. Install Python dependencies
+7. Create `.env` file from template
+8. Run verification checks
 
-### Option 2: Manual Setup
+**For Windows or manual installation, see the detailed OS-specific guides below.**
 
-#### 1. Install Ollama
+---
 
-Ollama is required to run the LLM models locally. Follow the installation instructions for your operating system:
+## 📖 Manual Installation & Setup
 
-**macOS:**
+Choose your operating system for complete step-by-step setup instructions:
 
-Option A - Using Homebrew (recommended):
+---
+
+### 🍎 macOS
+
+#### 1. Install Poetry (Python dependency manager)
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Add Poetry to your PATH:
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+Verify installation:
+```bash
+poetry --version
+```
+
+#### 2. Install Ollama (LLM runtime)
+
+**Option A - Using Homebrew (recommended):**
 ```bash
 brew install ollama
 ```
 
-Option B - Manual installation:
-1. Download the macOS installer from [ollama.ai/download](https://ollama.ai/download)
-2. Open the downloaded `.dmg` file
-3. Drag Ollama to your Applications folder
-4. Launch Ollama from Applications
+**Option B - Manual installation:**
+1. Download from [ollama.ai/download](https://ollama.ai/download)
+2. Open the `.dmg` file and drag Ollama to Applications
+3. Launch Ollama from Applications
 
-**Linux:**
-
-Automated installation script (Ubuntu, Debian, Fedora, CentOS, RHEL):
-```bash
-curl -fsSL https://ollama.ai/install.sh | sh
-```
-
-Manual installation:
-1. Download the Linux binary:
-   ```bash
-   curl -L https://ollama.ai/download/ollama-linux-amd64 -o /usr/local/bin/ollama
-   chmod +x /usr/local/bin/ollama
-   ```
-2. Create a systemd service (optional, for auto-start):
-   ```bash
-   sudo useradd -r -s /bin/false -m -d /usr/share/ollama ollama
-   sudo curl -L https://raw.githubusercontent.com/ollama/ollama/main/dist/linux/ollama.service -o /etc/systemd/system/ollama.service
-   sudo systemctl daemon-reload
-   sudo systemctl enable ollama
-   sudo systemctl start ollama
-   ```
-
-**Windows:**
-
-1. Download the Windows installer from [ollama.ai/download](https://ollama.ai/download)
-2. Run the `.exe` installer
-3. Follow the installation wizard
-4. Ollama will be available in the system tray
-
-**Docker (any OS):**
-
-If you prefer using Docker:
-```bash
-docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-```
-
-**Verify installation:**
-```bash
-ollama --version
-```
-
-#### 2. Start Ollama Service
+#### 3. Start Ollama Service
 
 ```bash
 ollama serve
 ```
 
-Leave this running in a separate terminal.
+Leave this running in a separate terminal, or run in background:
+```bash
+brew services start ollama
+```
 
-#### 3. Pull the Model
+#### 4. Pull the LLM Model
 
 ```bash
 ollama pull qwen2.5-coder:1.5b
 ```
 
-This downloads the default model (~1GB). You can use other models by updating `.env`.
+This downloads the default model (~1GB).
 
-#### 4. Install Python Dependencies
+#### 5. Clone and Setup Project
 
 ```bash
+git clone <repository-url>
+cd astra-ast-llm-security-auditor
 poetry install
-```
-
-#### 5. Configure Environment
-
-```bash
 cp .env.example .env
 ```
 
-Edit `.env` if needed:
-```env
-OLLAMA_HOST=http://localhost:11434
-MODEL_NAME=qwen2.5-coder:1.5b
-LOG_LEVEL=INFO
-LANGFUSE_ENABLED=false
+#### 6. Run Your First Scan
+
+```bash
+poetry run python -m app.cli scan demo.py
 ```
+
+#### 7. Run Quality Checks (Development)
+
+```bash
+./scripts/check.sh
+```
+
+Or run individual checks:
+```bash
+poetry run ruff format .      # Format code
+poetry run ruff check --fix .  # Lint
+poetry run mypy .              # Type check
+poetry run pytest              # Tests
+```
+
+---
+
+### 🐧 Linux
+
+#### 1. Install Poetry (Python dependency manager)
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Add Poetry to your PATH (add to `~/.bashrc` or `~/.zshrc`):
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+Reload shell configuration:
+```bash
+source ~/.bashrc  # or source ~/.zshrc
+```
+
+Verify installation:
+```bash
+poetry --version
+```
+
+#### 2. Install Ollama (LLM runtime)
+
+**Automated installation (Ubuntu, Debian, Fedora, CentOS, RHEL):**
+```bash
+curl -fsSL https://ollama.ai/install.sh | sh
+```
+
+**Manual installation:**
+```bash
+curl -L https://ollama.ai/download/ollama-linux-amd64 -o /usr/local/bin/ollama
+chmod +x /usr/local/bin/ollama
+```
+
+**Setup as systemd service (optional, for auto-start):**
+```bash
+sudo useradd -r -s /bin/false -m -d /usr/share/ollama ollama
+sudo curl -L https://raw.githubusercontent.com/ollama/ollama/main/dist/linux/ollama.service -o /etc/systemd/system/ollama.service
+sudo systemctl daemon-reload
+sudo systemctl enable ollama
+sudo systemctl start ollama
+```
+
+Verify installation:
+```bash
+ollama --version
+```
+
+#### 3. Start Ollama Service
+
+If not using systemd:
+```bash
+ollama serve &
+```
+
+#### 4. Pull the LLM Model
+
+```bash
+ollama pull qwen2.5-coder:1.5b
+```
+
+This downloads the default model (~1GB).
+
+#### 5. Clone and Setup Project
+
+```bash
+git clone <repository-url>
+cd astra-ast-llm-security-auditor
+poetry install
+cp .env.example .env
+```
+
+#### 6. Run Your First Scan
+
+```bash
+poetry run python -m app.cli scan demo.py
+```
+
+#### 7. Run Quality Checks (Development)
+
+```bash
+./scripts/check.sh
+```
+
+Or run individual checks:
+```bash
+poetry run ruff format .      # Format code
+poetry run ruff check --fix .  # Lint
+poetry run mypy .              # Type check
+poetry run pytest              # Tests
+```
+
+---
+
+### 🪟 Windows
+
+#### 1. Install Poetry (Python dependency manager)
+
+**Option A - Using PowerShell (recommended):**
+```powershell
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+```
+
+**Option B - Using pip:**
+```powershell
+pip install poetry
+```
+
+Add Poetry to your PATH:
+- Open "Environment Variables" in System Properties
+- Add `%APPDATA%\Python\Scripts` to your PATH
+- Restart your terminal
+
+Verify installation:
+```powershell
+poetry --version
+```
+
+#### 2. Install Ollama (LLM runtime)
+
+1. Download the Windows installer from [ollama.ai/download](https://ollama.ai/download)
+2. Run the `.exe` installer
+3. Follow the installation wizard
+4. Ollama will run automatically in the system tray
+
+Verify installation:
+```powershell
+ollama --version
+```
+
+#### 3. Pull the LLM Model
+
+```powershell
+ollama pull qwen2.5-coder:1.5b
+```
+
+This downloads the default model (~1GB).
+
+#### 4. Clone and Setup Project
+
+```powershell
+git clone <repository-url>
+cd astra-ast-llm-security-auditor
+poetry install
+copy .env.example .env
+```
+
+#### 5. Run Your First Scan
+
+```powershell
+poetry run python -m app.cli scan demo.py
+```
+
+#### 6. Run Quality Checks (Development)
+
+Run all checks with the PowerShell script:
+```powershell
+.\scripts\check.ps1
+```
+
+Or run checks individually:
+```powershell
+poetry run ruff format .      # Format code
+poetry run ruff check --fix .  # Lint
+poetry run mypy .              # Type check
+poetry run pytest              # Tests
+```
+
+
+
+---
 
 ## 🔧 Usage
 
@@ -146,47 +313,6 @@ The tool caches LLM responses to optimize performance. To clear:
 
 ```bash
 poetry run python clear_cache.py
-```
-
-## 🧪 Development
-
-### Run Quality Checks
-
-Execute all checks (format, lint, type-check, tests):
-
-```bash
-./scripts/check.sh
-```
-
-Individual checks:
-
-```bash
-# Format code
-poetry run ruff format .
-
-# Lint and auto-fix
-poetry run ruff check --fix .
-
-# Type checking
-poetry run mypy .
-
-# Run tests
-poetry run pytest
-```
-
-### Project Structure
-
-```
-app/
-├── cli.py              # CLI interface
-├── scanner.py          # Main scanner orchestrator
-├── config.py           # Configuration management
-├── logging_config.py   # Structured logging setup
-├── core/               # Core scanning engine
-├── ingestion/          # AST parsing and context extraction
-├── llm/                # LLM client (Ollama)
-├── scoring/            # Risk scoring engine
-└── schemas/            # Pydantic data models
 ```
 
 ## 🛠 Tech Stack
