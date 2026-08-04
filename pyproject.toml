@@ -45,3 +45,5 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+[tool.poetry]
+package-mode = false
