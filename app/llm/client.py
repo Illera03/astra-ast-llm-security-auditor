@@ -40,19 +40,23 @@ class OllamaClient:
         Returns None if the LLM hallucinates or the connection fails.
         """
         system_prompt = f"""
-        You are a strict security auditor. Analyze this Python code for {cwe_id} (Command Injection).
+        You are a strict security auditor. Analyze this Python code for {cwe_id} 
+        (Command Injection).
         
         STRICT EVALUATION RULES:
         1. Does the code import 'subprocess' or 'os'?
-        2. Does the subprocess call explicitly contain 'shell=True'? If YES, it is highly likely to be vulnerable.
-        3. Are the arguments passed to the command dynamically constructed (e.g., f-strings, concatenation) with user input?
+        2. Does the subprocess call explicitly contain 'shell=True'? 
+        If YES, it is highly likely to be vulnerable.
+        3. Are the arguments passed to the command dynamically constructed 
+        (e.g., f-strings, concatenation) with user input?
         4. If 'shell=True' is present and arguments are dynamic, it IS exploitable.
 
         RESPOND STRICTLY IN THIS JSON FORMAT:
         {{
             "is_exploitable": true or false,
             "confidence": 0.9,
-            "exploit_path": "Explain exactly if shell=True is present and if arguments are dynamic."
+            "exploit_path": "Explain exactly if shell=True is present and if arguments 
+            are dynamic."
         }}
         """
 

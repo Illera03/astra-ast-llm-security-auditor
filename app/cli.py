@@ -24,7 +24,7 @@ async def scan_file(
         sys.exit(1)
 
     # Helper function: only prints if we're NOT outputting pure JSON to console
-    def ui_print(msg: str = ""):
+    def ui_print(msg: str = "") -> None:
         if output_format == "console":
             print(msg)
 
@@ -124,7 +124,7 @@ async def scan_file(
                 json.dump(report_data, f, indent=4)
             ui_print(f"[*] Report successfully exported to: {output_file}")
         else:
-            # Output pure JSON (useful for piping with commands like `| jq` in the terminal)
+            # Output pure JSON (useful for piping with commands)
             print(json.dumps(report_data, indent=4))
 
 
