@@ -33,18 +33,61 @@ This script will:
 
 #### 1. Install Ollama
 
+Ollama is required to run the LLM models locally. Follow the installation instructions for your operating system:
+
 **macOS:**
+
+Option A - Using Homebrew (recommended):
 ```bash
 brew install ollama
 ```
 
+Option B - Manual installation:
+1. Download the macOS installer from [ollama.ai/download](https://ollama.ai/download)
+2. Open the downloaded `.dmg` file
+3. Drag Ollama to your Applications folder
+4. Launch Ollama from Applications
+
 **Linux:**
+
+Automated installation script (Ubuntu, Debian, Fedora, CentOS, RHEL):
 ```bash
 curl -fsSL https://ollama.ai/install.sh | sh
 ```
 
+Manual installation:
+1. Download the Linux binary:
+   ```bash
+   curl -L https://ollama.ai/download/ollama-linux-amd64 -o /usr/local/bin/ollama
+   chmod +x /usr/local/bin/ollama
+   ```
+2. Create a systemd service (optional, for auto-start):
+   ```bash
+   sudo useradd -r -s /bin/false -m -d /usr/share/ollama ollama
+   sudo curl -L https://raw.githubusercontent.com/ollama/ollama/main/dist/linux/ollama.service -o /etc/systemd/system/ollama.service
+   sudo systemctl daemon-reload
+   sudo systemctl enable ollama
+   sudo systemctl start ollama
+   ```
+
 **Windows:**
-Download from [ollama.ai](https://ollama.ai)
+
+1. Download the Windows installer from [ollama.ai/download](https://ollama.ai/download)
+2. Run the `.exe` installer
+3. Follow the installation wizard
+4. Ollama will be available in the system tray
+
+**Docker (any OS):**
+
+If you prefer using Docker:
+```bash
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+```
+
+**Verify installation:**
+```bash
+ollama --version
+```
 
 #### 2. Start Ollama Service
 
