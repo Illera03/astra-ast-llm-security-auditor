@@ -3,8 +3,8 @@
 Constructing paths relative to the current script's directory is a
 common idiom and involves no user-controlled input.
 """
-from pathlib import Path
 import json
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 

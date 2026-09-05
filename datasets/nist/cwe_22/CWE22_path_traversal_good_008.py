@@ -4,7 +4,8 @@ Pattern: Integer-based file lookup eliminates directory traversal strings entire
 NIST Juliet: CWE22_Improper_Limitation_of_a_Pathname__id_lookup__01
 """
 import os
-from flask import Flask, request, abort, jsonify
+
+from flask import Flask, abort, request
 
 app = Flask(__name__)
 REPORT_DIR = "/var/reports"

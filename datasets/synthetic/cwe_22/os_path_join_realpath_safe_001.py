@@ -5,8 +5,6 @@ Edge case: uses os.path (not pathlib) but is still safe — tests whether
 the analyzer understands os-level path resolution.
 """
 import os
-from typing import Optional
-
 
 SAFE_ROOT = "/opt/appdata/user_files"
 
@@ -20,14 +18,14 @@ def resolve_and_check(base: str, user_input: str) -> str:
     return real
 
 
-def read_file_safely(filename: str) -> Optional[str]:
+def read_file_safely(filename: str) -> str | None:
     try:
         safe_path = resolve_and_check(SAFE_ROOT, filename)
     except PermissionError:
         return None
     if not os.path.isfile(safe_path):
         return None
-    with open(safe_path, "r") as fh:
+    with open(safe_path) as fh:
         return fh.read()
 
 

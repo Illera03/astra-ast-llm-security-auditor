@@ -8,7 +8,6 @@ thinking the path is safe.
 import os
 from urllib.parse import unquote
 
-
 UPLOAD_DIR = "/var/www/uploads"
 
 

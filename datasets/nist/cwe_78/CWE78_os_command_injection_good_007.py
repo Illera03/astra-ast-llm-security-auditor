@@ -6,7 +6,6 @@ Reference: CWE-78 mitigation via input validation
 import re
 import subprocess
 
-
 HOSTNAME_RE = re.compile(r"^[a-zA-Z0-9._-]+$")
 
 

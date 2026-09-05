@@ -3,8 +3,9 @@ Edge case: msgpack is a binary serialization format, but unlike pickle
 it does not support arbitrary object instantiation.  The `raw=False`
 flag ensures strings are decoded as str, not bytes.
 """
-import msgpack
 from typing import Any
+
+import msgpack
 
 
 def decode_message(data: bytes) -> dict[str, Any]:

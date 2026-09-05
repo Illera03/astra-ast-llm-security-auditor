@@ -3,9 +3,9 @@
 The destination directory comes from user input, allowing an attacker
 to move files to arbitrary locations on the filesystem.
 """
+import os
 import shutil
 import sys
-import os
 
 
 def relocate_export(export_id, destination_dir):

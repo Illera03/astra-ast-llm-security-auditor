@@ -4,10 +4,9 @@ input through 3+ nesting levels before reaching the sink."""
 
 import subprocess
 import sys
-from typing import Optional
 
 
-def process_user_request(request: dict, mode: str) -> Optional[str]:
+def process_user_request(request: dict, mode: str) -> str | None:
     results = []
     if mode in ("admin", "user", "guest"):
         for key in request:

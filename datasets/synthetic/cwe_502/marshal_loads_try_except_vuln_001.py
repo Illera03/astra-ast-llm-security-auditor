@@ -3,19 +3,19 @@ Edge case: the vulnerability is wrapped in broad exception handling that
 silently logs errors.  The try/except makes static analysis harder and
 gives a false sense of safety.
 """
-import marshal
 import logging
-from typing import Any, Optional
+import marshal
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-def load_cached_bytecode(raw_data: bytes) -> Optional[Any]:
+def load_cached_bytecode(raw_data: bytes) -> Any | None:
     """Attempt to load cached bytecode from raw bytes.
 
     The data may come from an untrusted cache layer (e.g., Redis, memcached).
     """
-    result: Optional[Any] = None
+    result: Any | None = None
     try:
         if len(raw_data) < 8:
             logger.warning("Payload too short, skipping")

@@ -5,7 +5,6 @@ read_file via string concatenation. The distance between taint source
 Edge case: cross-method data flow within a class.
 """
 import os
-from typing import Optional
 
 
 class DocumentStore:
@@ -17,13 +16,13 @@ class DocumentStore:
     def _build_path(self, filename: str) -> str:
         return self.base_dir + "/" + filename
 
-    def read_file(self, filename: str) -> Optional[str]:
+    def read_file(self, filename: str) -> str | None:
         if filename in self._cache:
             return self._cache[filename]
         path = self._build_path(filename)
         if not os.path.isfile(path):
             return None
-        with open(path, "r") as fh:
+        with open(path) as fh:
             content = fh.read(self.max_size)
         self._cache[filename] = content
         return content

@@ -5,7 +5,6 @@ Edge case: dataclass pattern with type hints may look structured/safe but
 the field value is never sanitized.
 """
 from dataclasses import dataclass, field
-from typing import Optional
 from datetime import datetime
 
 
@@ -17,9 +16,9 @@ class FileRequest:
     encoding: str = "utf-8"
     max_bytes: int = 1024 * 1024
 
-    def read(self) -> Optional[str]:
+    def read(self) -> str | None:
         try:
-            with open(self.file_path, "r", encoding=self.encoding) as fh:
+            with open(self.file_path, encoding=self.encoding) as fh:
                 return fh.read(self.max_bytes)
         except (FileNotFoundError, PermissionError):
             return None

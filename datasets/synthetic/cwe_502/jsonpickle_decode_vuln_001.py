@@ -3,8 +3,9 @@ Edge case: jsonpickle serialises Python objects as JSON, so it *looks*
 like safe JSON handling.  However, jsonpickle.decode can instantiate
 arbitrary classes, making it as dangerous as pickle.loads.
 """
-import jsonpickle
 from typing import Any
+
+import jsonpickle
 
 
 class AnalyticsEvent:

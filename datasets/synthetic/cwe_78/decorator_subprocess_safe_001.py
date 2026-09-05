@@ -5,7 +5,8 @@ every argument is properly escaped. Looks dangerous but is actually safe."""
 import functools
 import shlex
 import subprocess
-from typing import Callable, Any
+from collections.abc import Callable
+from typing import Any
 
 
 def sanitize_args(func: Callable[..., Any]) -> Callable[..., Any]:

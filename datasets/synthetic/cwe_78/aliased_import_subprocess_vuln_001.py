@@ -2,13 +2,12 @@
 and `from subprocess import call as invoke`. AST analyzers that only match
 against 'subprocess.run' or 'subprocess.call' will miss these sinks."""
 
-from subprocess import run as execute
-from subprocess import call as invoke
 import sys
-from typing import Optional
+from subprocess import call as invoke
+from subprocess import run as execute
 
 
-def deploy_service(service_name: str, version: str) -> Optional[str]:
+def deploy_service(service_name: str, version: str) -> str | None:
     cmd = f"docker pull registry.internal/{service_name}:{version}"
     result = execute(cmd, shell=True, capture_output=True, text=True)
     if result.returncode == 0:

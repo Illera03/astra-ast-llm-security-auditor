@@ -7,7 +7,7 @@ import subprocess
 
 
 def compress_file(filename):
-    cmd = "tar -czf archive.tar.gz %s" % filename
+    cmd = f"tar -czf archive.tar.gz {filename}"
     subprocess.run(cmd, shell=True, check=True)
 
 

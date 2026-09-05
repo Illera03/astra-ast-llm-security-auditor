@@ -10,7 +10,7 @@ import sys
 def read_user_document(username, doc_name):
     base_dir = "/srv/documents"
     doc_path = os.path.join(base_dir, username, doc_name)
-    with open(doc_path, "r") as fh:
+    with open(doc_path) as fh:
         return fh.read()
 
 

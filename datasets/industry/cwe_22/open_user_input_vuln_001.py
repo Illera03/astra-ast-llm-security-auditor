@@ -7,7 +7,7 @@ allowing arbitrary file reads via traversal (e.g. ../../../etc/passwd).
 
 def view_file():
     filename = input("Enter filename to view: ")
-    with open(filename, "r") as fh:
+    with open(filename) as fh:
         print(fh.read())
 
 

@@ -3,14 +3,15 @@ Edge case: YAML is used, but exclusively via yaml.safe_load(), which
 does not allow arbitrary Python object instantiation.  A naïve scanner
 that flags any `yaml.load*` call would produce a false positive.
 """
-import yaml
 from pathlib import Path
 from typing import Any
+
+import yaml
 
 
 def load_app_config(config_path: Path) -> dict[str, Any]:
     """Load application configuration from a YAML file."""
-    with open(config_path, "r") as fh:
+    with open(config_path) as fh:
         config = yaml.safe_load(fh)
     if config is None:
         return {}

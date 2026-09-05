@@ -5,8 +5,6 @@ directory can point to arbitrary locations outside it.
 Edge case: validation is present but insufficient — symlinks bypass the check.
 """
 import os
-from typing import Optional
-
 
 MEDIA_ROOT = "/var/www/media"
 
@@ -21,7 +19,7 @@ def sanitize_path(user_path: str) -> bool:
     return True
 
 
-def get_media_file(user_path: str) -> Optional[bytes]:
+def get_media_file(user_path: str) -> bytes | None:
     if not sanitize_path(user_path):
         raise ValueError("Invalid path characters detected")
     full_path = os.path.join(MEDIA_ROOT, user_path)

@@ -8,7 +8,7 @@ import sys
 
 def fetch_report(report_id):
     path = f"/data/reports/{report_id}.csv"
-    with open(path, "r") as fh:
+    with open(path) as fh:
         return fh.read()
 
 

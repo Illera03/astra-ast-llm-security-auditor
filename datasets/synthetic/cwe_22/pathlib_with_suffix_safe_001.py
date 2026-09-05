@@ -7,7 +7,6 @@ directory containment — tests whether analyzer handles combined mitigations.
 """
 from pathlib import Path
 
-
 NOTES_DIR = Path("/srv/notes").resolve()
 
 

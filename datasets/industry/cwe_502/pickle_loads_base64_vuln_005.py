@@ -32,6 +32,7 @@ def handle_request(cookies: dict) -> dict:
 
 if __name__ == "__main__":
     # Simulate a request with a crafted cookie
-    fake_cookies = {"session": base64.b64encode(pickle.dumps({"user": "test"})).decode()}
+    encoded = base64.b64encode(pickle.dumps({"user": "test"}))
+    fake_cookies = {"session": encoded.decode()}
     result = handle_request(fake_cookies)
     print(f"Session: {result}")

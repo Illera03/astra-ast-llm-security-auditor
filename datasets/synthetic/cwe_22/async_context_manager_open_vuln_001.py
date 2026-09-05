@@ -4,7 +4,7 @@ to an async file reader with no path validation.
 Edge case: async/await syntax and context managers make the sink harder to trace.
 """
 import asyncio
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 

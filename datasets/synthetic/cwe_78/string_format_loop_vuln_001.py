@@ -4,15 +4,14 @@ which is then passed to subprocess.call with shell=True."""
 
 import subprocess
 import sys
-from typing import List
 
 
-def batch_process(filenames: List[str], operation: str = "cat") -> int:
+def batch_process(filenames: list[str], operation: str = "cat") -> int:
     base_cmd = "sh -c '"
-    cmd_parts: List[str] = []
+    cmd_parts: list[str] = []
 
     for i, fname in enumerate(filenames):
-        segment = "{op} {f}".format(op=operation, f=fname)
+        segment = f"{operation} {fname}"
         cmd_parts.append(segment)
         if i < len(filenames) - 1:
             cmd_parts.append("&&")

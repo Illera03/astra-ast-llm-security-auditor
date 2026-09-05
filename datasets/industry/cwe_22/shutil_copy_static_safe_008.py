@@ -3,8 +3,8 @@
 Both source and destination are string literals. No user input
 is involved in path construction.
 """
-import shutil
 import os
+import shutil
 
 
 def backup_database():

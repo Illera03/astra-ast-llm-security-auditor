@@ -5,7 +5,6 @@ joins it to a base directory without stripping traversal sequences.
 """
 import os
 
-
 UPLOAD_DIR = "/var/www/uploads"
 
 

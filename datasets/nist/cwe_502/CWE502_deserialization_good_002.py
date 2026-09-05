@@ -16,5 +16,5 @@ def parse_deployment_manifest(manifest_text):
 
 
 def read_manifest(path):
-    with open(path, "r") as f:
+    with open(path) as f:
         return parse_deployment_manifest(f.read())

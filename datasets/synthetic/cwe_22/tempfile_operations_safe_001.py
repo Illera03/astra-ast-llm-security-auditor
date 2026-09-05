@@ -4,8 +4,8 @@ path components at any point.
 Edge case: file operations are present (open, write, read) but all paths
 come from the OS, not from user input. Tests false-positive rate.
 """
-import os
 import json
+import os
 import tempfile
 from typing import Any
 
@@ -13,13 +13,13 @@ from typing import Any
 def process_batch(records: list[dict[str, Any]]) -> str:
     work_dir = tempfile.mkdtemp(prefix="batch_")
     results = []
-    for i, record in enumerate(records):
+    for _i, record in enumerate(records):
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".json", dir=work_dir, delete=False
         ) as tmp:
             json.dump(record, tmp)
             tmp_path = tmp.name
-        with open(tmp_path, "r") as fh:
+        with open(tmp_path) as fh:
             parsed = json.load(fh)
             results.append(parsed)
         os.unlink(tmp_path)

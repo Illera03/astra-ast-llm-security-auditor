@@ -7,7 +7,7 @@ import subprocess
 
 
 def check_host_reachable(hostname: str) -> bool:
-    cmd = "ping -c 1 -W 2 {}".format(hostname)
+    cmd = f"ping -c 1 -W 2 {hostname}"
     proc = subprocess.Popen(
         cmd,
         shell=True,

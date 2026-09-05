@@ -20,7 +20,7 @@ def generate_report(username: str, start_date: str, output_dir: str = "/tmp") ->
     )
 
     stream = os.popen(command)
-    result = stream.read()
+    stream.read()
     stream.close()
     return f"{output_dir}/{report_name}"
 

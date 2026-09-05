@@ -3,8 +3,9 @@ CWE-502: Insecure Deserialization — Safe
 Pattern: xmltodict.parse() as a safe alternative to xml.etree for config parsing.
 Reference: NIST Juliet CWE-502 safe variant.
 """
-import xmltodict
 import json
+
+import xmltodict
 
 
 def convert_xml_config(xml_string):
@@ -13,7 +14,7 @@ def convert_xml_config(xml_string):
 
 
 def load_xml_settings(path):
-    with open(path, "r") as f:
+    with open(path) as f:
         xml_data = f.read()
     config = convert_xml_config(xml_data)
     root = config.get("settings", {})

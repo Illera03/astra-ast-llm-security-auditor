@@ -6,7 +6,6 @@ the jail check. Tests whether the analyzer can propagate safety through a
 shared validation method.
 """
 import os
-from typing import Optional
 
 
 class PathJail:
@@ -22,11 +21,11 @@ class PathJail:
                 raise PermissionError("Jail escape attempt blocked")
         return candidate
 
-    def read(self, path: str) -> Optional[str]:
+    def read(self, path: str) -> str | None:
         safe = self._enforce(path)
         if not os.path.isfile(safe):
             return None
-        with open(safe, "r") as fh:
+        with open(safe) as fh:
             return fh.read()
 
     def write(self, path: str, data: str) -> None:

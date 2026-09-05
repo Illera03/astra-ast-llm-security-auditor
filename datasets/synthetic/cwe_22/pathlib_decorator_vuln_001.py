@@ -4,9 +4,10 @@ path argument. User-controlled input flows directly into Path().
 Edge case: decorator indirection hides the dangerous sink from simple AST walks.
 """
 import logging
-from pathlib import Path
+from collections.abc import Callable
 from functools import wraps
-from typing import Callable, Any
+from pathlib import Path
+from typing import Any
 
 logger = logging.getLogger(__name__)
 

@@ -7,7 +7,6 @@ known document is safe.
 
 import xml.etree.ElementTree as ET
 
-
 STATIC_CONFIG_XML = """<?xml version="1.0"?>
 <config>
     <database>

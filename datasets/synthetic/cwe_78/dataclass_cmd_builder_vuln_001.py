@@ -21,7 +21,10 @@ class DeployConfig:
 
     def build_command(self) -> str:
         flags = " ".join(self.extra_flags)
-        return f"docker pull {self.image_tag} && docker tag {self.image_tag} current {flags}"
+        return (
+            f"docker pull {self.image_tag}"
+            f" && docker tag {self.image_tag} current {flags}"
+        )
 
 
 def execute_deploy(config: DeployConfig) -> bool:

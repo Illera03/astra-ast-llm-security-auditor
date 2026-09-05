@@ -5,10 +5,9 @@ rather than a shell-interpreted string. This is the recommended safe pattern."""
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
 
 
-def grep_in_file(pattern: str, filepath: Path) -> Optional[str]:
+def grep_in_file(pattern: str, filepath: Path) -> str | None:
     if not filepath.is_file():
         return None
 

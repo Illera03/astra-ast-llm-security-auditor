@@ -2,11 +2,11 @@
 is only called with fully hardcoded commands. User data flows into file contents
 written via Python's open(), never into command arguments."""
 
-import subprocess
 import itertools
+import subprocess
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 
 def normalize_records(raw: list[str]) -> Generator[str, None, None]:
@@ -16,7 +16,9 @@ def normalize_records(raw: list[str]) -> Generator[str, None, None]:
             yield stripped.lower()
 
 
-def chunk_records(records: Generator[str, None, None], size: int = 100) -> Generator[list[str], None, None]:
+def chunk_records(
+    records: Generator[str, None, None], size: int = 100
+) -> Generator[list[str], None, None]:
     iterator = iter(records)
     while True:
         chunk = list(itertools.islice(iterator, size))

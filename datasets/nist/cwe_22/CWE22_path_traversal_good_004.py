@@ -4,6 +4,7 @@ Pattern: werkzeug.utils.secure_filename sanitizes upload names.
 Related: Werkzeug secure_filename mitigation for CVE-2023-37276 patterns
 """
 import os
+
 from flask import Flask, request
 from werkzeug.utils import secure_filename
 

@@ -8,7 +8,10 @@ import pickle
 from typing import Any
 
 ALLOWED_CLASSES: dict[str, set[str]] = {
-    "builtins": {"dict", "list", "set", "tuple", "int", "float", "str", "bool", "bytes"},
+    "builtins": {
+        "dict", "list", "set", "tuple",
+        "int", "float", "str", "bool", "bytes",
+    },
     "collections": {"OrderedDict", "defaultdict"},
     "datetime": {"datetime", "date", "time", "timedelta"},
 }

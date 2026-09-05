@@ -5,10 +5,9 @@ An attacker can still inject arguments or exploit the program being called."""
 import shlex
 import subprocess
 import sys
-from typing import Optional
 
 
-def convert_image(source: str, target: str, extra_opts: str = "") -> Optional[bytes]:
+def convert_image(source: str, target: str, extra_opts: str = "") -> bytes | None:
     base = f"convert {source} {extra_opts} {target}"
     tokens = shlex.split(base)
 

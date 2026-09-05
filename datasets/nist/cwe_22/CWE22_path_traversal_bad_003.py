@@ -3,8 +3,8 @@ CWE-22: Path Traversal — Vulnerable
 Pattern: pathlib.Path constructed from user-controlled directory variable.
 NIST Juliet: CWE22_Improper_Limitation_of_a_Pathname__pathlib__01
 """
-from pathlib import Path
 import sys
+from pathlib import Path
 
 
 def load_user_document(user_dir):

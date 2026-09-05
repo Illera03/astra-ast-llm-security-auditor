@@ -6,18 +6,17 @@ Edge case: misleading variable names should not cause false positives.
 import json
 from typing import Any
 
-
 user_config_path = "/etc/myapp/config.json"
 user_data_path = "/etc/myapp/data.json"
 
 
 def load_config() -> dict[str, Any]:
-    with open(user_config_path, "r") as fh:
+    with open(user_config_path) as fh:
         return json.load(fh)
 
 
 def load_data() -> list[dict[str, Any]]:
-    with open(user_data_path, "r") as fh:
+    with open(user_data_path) as fh:
         return json.load(fh)
 
 

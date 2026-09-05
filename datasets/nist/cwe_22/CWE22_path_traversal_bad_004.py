@@ -3,7 +3,6 @@ CWE-22: Path Traversal — Vulnerable
 Pattern: String concatenation to build file path from user input in upload handler.
 Related: CVE-2020-28493 (Jinja2 sandbox escape via path traversal)
 """
-import os
 
 
 UPLOAD_DIR = "/uploads/"

@@ -7,7 +7,10 @@ import subprocess
 
 
 def deploy_project(project_name, branch):
-    cmd = "cd /opt/projects/" + project_name + " && git checkout " + branch + " && make deploy"
+    cmd = (
+        "cd /opt/projects/" + project_name
+        + " && git checkout " + branch + " && make deploy"
+    )
     return subprocess.call(cmd, shell=True)
 
 

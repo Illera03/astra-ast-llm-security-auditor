@@ -1,4 +1,4 @@
-"""Vulnerable: user-supplied variable used as argument in subprocess.run with shell=True.
+"""Vulnerable: user-supplied variable in subprocess.run with shell=True.
 
 A package name from user input is passed into a pip install command via
 shell=True. An attacker can chain commands through the package name.

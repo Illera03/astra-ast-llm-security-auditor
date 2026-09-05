@@ -3,9 +3,8 @@ CWE-22: Path Traversal — Vulnerable
 Pattern: shutil.copy with user-controlled source path.
 NIST Juliet: CWE22_Improper_Limitation_of_a_Pathname__shutil__01
 """
-import shutil
 import os
-
+import shutil
 
 BACKUP_DIR = "/var/backups/"
 

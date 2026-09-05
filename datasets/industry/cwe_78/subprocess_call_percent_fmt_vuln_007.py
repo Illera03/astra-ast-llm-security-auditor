@@ -7,12 +7,12 @@ import subprocess
 
 
 def traceroute(ip_address: str) -> int:
-    cmd = "traceroute -m 10 %s" % ip_address
+    cmd = f"traceroute -m 10 {ip_address}"
     return subprocess.call(cmd, shell=True)
 
 
 def nslookup(domain: str) -> int:
-    cmd = "nslookup %s" % domain
+    cmd = f"nslookup {domain}"
     return subprocess.call(cmd, shell=True)
 
 

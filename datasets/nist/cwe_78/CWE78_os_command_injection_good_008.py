@@ -10,7 +10,7 @@ from pathlib import Path
 
 def get_disk_usage(directory):
     total = 0
-    for dirpath, dirnames, filenames in os.walk(directory):
+    for dirpath, _dirnames, filenames in os.walk(directory):
         for f in filenames:
             fp = os.path.join(dirpath, f)
             if os.path.isfile(fp):

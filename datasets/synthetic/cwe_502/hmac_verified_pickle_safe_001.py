@@ -3,8 +3,8 @@ Edge case: pickle.loads is present, but the data is HMAC-verified with
 a server-side secret before deserialization.  This prevents tampering
 and makes exploitation infeasible without the secret key.
 """
-import hmac
 import hashlib
+import hmac
 import pickle
 from typing import Any
 

@@ -7,12 +7,12 @@ import json
 
 
 def load_app_config():
-    with open("/etc/myapp/config.json", "r") as fh:
+    with open("/etc/myapp/config.json") as fh:
         return json.load(fh)
 
 
 def read_license():
-    with open("LICENSE", "r") as fh:
+    with open("LICENSE") as fh:
         return fh.read()
 
 

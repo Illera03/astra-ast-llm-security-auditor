@@ -9,7 +9,7 @@ import socket
 
 def handle_client(conn):
     data = conn.recv(1024).decode("utf-8").strip()
-    os.system("echo {} >> /var/log/client_messages.log".format(data))
+    os.system(f"echo {data} >> /var/log/client_messages.log")
     conn.sendall(b"Message logged.\n")
 
 

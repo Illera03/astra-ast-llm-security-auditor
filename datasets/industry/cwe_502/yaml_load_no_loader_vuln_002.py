@@ -6,12 +6,13 @@ execute arbitrary Python objects via YAML tags like !!python/object.
 """
 
 import sys
+
 import yaml
 
 
 def load_user_config(config_path: str) -> dict:
     """Load user-uploaded YAML configuration file."""
-    with open(config_path, "r") as f:
+    with open(config_path) as f:
         content = f.read()
 
     # VULNERABLE: no Loader specified -- unsafe in older PyYAML

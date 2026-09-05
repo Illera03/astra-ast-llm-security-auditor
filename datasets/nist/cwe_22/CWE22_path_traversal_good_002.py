@@ -12,5 +12,5 @@ def safe_read(user_filename):
     requested = os.path.realpath(os.path.join(BASE_DIR, user_filename))
     if not requested.startswith(os.path.realpath(BASE_DIR) + os.sep):
         raise PermissionError("Access denied: path traversal detected")
-    with open(requested, "r") as f:
+    with open(requested) as f:
         return f.read()

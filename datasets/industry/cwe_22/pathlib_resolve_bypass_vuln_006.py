@@ -5,7 +5,6 @@ resolved path is still under the intended base directory.
 """
 from pathlib import Path
 
-
 ALLOWED_DIR = Path("/srv/shared_files")
 
 

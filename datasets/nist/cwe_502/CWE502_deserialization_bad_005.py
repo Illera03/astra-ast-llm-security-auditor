@@ -3,8 +3,9 @@ CWE-502: Insecure Deserialization — Vulnerable
 Pattern: jsonpickle.decode() on untrusted API input.
 Reference: NIST Juliet CWE-502, jsonpickle enables arbitrary object instantiation.
 """
-import jsonpickle
 import json
+
+import jsonpickle
 
 
 def process_webhook(raw_body):

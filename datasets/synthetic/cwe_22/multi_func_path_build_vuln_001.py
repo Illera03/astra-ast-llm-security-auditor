@@ -4,7 +4,6 @@ any validation or sanitization at any stage.
 Edge case: multi-hop data flow challenges taint tracking in AST analysis.
 """
 import os
-from typing import Optional
 
 
 def get_base(tenant_id: str) -> str:
@@ -23,10 +22,10 @@ def build_full_path(tenant_id: str, category: str, filename: str) -> str:
 
 def read_tenant_file(
     tenant_id: str, category: str, filename: str
-) -> Optional[str]:
+) -> str | None:
     full_path = build_full_path(tenant_id, category, filename)
     try:
-        with open(full_path, "r") as fh:
+        with open(full_path) as fh:
             return fh.read()
     except FileNotFoundError:
         return None

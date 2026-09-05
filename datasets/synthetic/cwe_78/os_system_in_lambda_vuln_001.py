@@ -4,7 +4,7 @@ Variable-to-sink distance and indirection through a dict challenge taint trackin
 
 import os
 import sys
-from typing import Callable
+from collections.abc import Callable
 
 
 def build_action_registry() -> dict[str, Callable[[str], int]]:

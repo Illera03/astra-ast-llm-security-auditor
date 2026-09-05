@@ -3,9 +3,9 @@ CWE-502: Insecure Deserialization — Safe
 Pattern: HMAC verification before deserializing pickled cache data.
 Reference: Django signed cookie pattern, NIST Juliet CWE-502 safe variant.
 """
-import pickle
-import hmac
 import hashlib
+import hmac
+import pickle
 
 SECRET_KEY = b"app-secret-key-from-env"
 

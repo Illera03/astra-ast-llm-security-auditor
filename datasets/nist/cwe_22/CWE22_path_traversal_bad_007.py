@@ -5,7 +5,6 @@ NIST Juliet: CWE22_Improper_Limitation_of_a_Pathname__open_concat__01
 """
 import json
 
-
 CONFIG_DIR = "/etc/myapp/conf/"
 
 

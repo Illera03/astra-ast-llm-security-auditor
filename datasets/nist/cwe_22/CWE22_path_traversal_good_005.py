@@ -3,7 +3,7 @@ CWE-22: Path Traversal — Safe
 Pattern: Allowlist of permitted filenames rejects unlisted requests.
 NIST Juliet: CWE22_Improper_Limitation_of_a_Pathname__allowlist__01
 """
-from flask import Flask, request, abort, send_from_directory
+from flask import Flask, abort, request, send_from_directory
 
 app = Flask(__name__)
 

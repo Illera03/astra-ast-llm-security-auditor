@@ -6,7 +6,6 @@ mode with a hardcoded path is equivalent to reading a trusted config file.
 
 import shelve
 
-
 CONFIG_DB = "/etc/myapp/defaults.db"
 
 

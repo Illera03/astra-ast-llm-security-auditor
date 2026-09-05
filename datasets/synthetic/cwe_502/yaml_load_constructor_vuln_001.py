@@ -3,9 +3,10 @@ Edge case: the dangerous call is buried inside a class constructor,
 making it harder for function-level scanners to flag.  The config file
 path comes from user-uploaded content.
 """
-import yaml
 from pathlib import Path
 from typing import Any
+
+import yaml
 
 
 class PluginConfig:
@@ -16,7 +17,7 @@ class PluginConfig:
     settings: dict[str, Any]
 
     def __init__(self, config_path: Path) -> None:
-        with open(config_path, "r") as fh:
+        with open(config_path) as fh:
             data = yaml.load(fh)  # VULNERABLE: no Loader argument
         self.name = data.get("name", "unknown")
         self.version = data.get("version", "0.0.0")

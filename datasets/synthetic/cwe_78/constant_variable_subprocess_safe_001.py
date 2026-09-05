@@ -10,8 +10,6 @@ ALLOWED_COMMAND: Final[str] = "ls -la"
 
 def list_directory(directory: str = ".") -> str:
     user_cmd = ALLOWED_COMMAND
-    extra_args = "--color=auto"
-    full_cmd = f"{user_cmd} {extra_args}"
 
     if directory == ".":
         user_cmd = ALLOWED_COMMAND

@@ -3,9 +3,10 @@ CWE-502: Insecure Deserialization — Vulnerable
 Pattern: numpy.load() with allow_pickle=True on untrusted file upload.
 Reference: CVE-2019-6446 (numpy.load allow_pickle default was True).
 """
-import numpy as np
-import tempfile
 import os
+import tempfile
+
+import numpy as np
 
 
 def process_uploaded_array(file_storage):

@@ -7,7 +7,7 @@ import yaml
 
 
 def load_app_config(config_path):
-    with open(config_path, "r") as f:
+    with open(config_path) as f:
         config_string = f.read()
     config = yaml.load(config_string)
     return config

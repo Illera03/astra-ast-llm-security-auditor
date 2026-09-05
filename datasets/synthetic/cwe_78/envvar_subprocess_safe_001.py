@@ -2,10 +2,9 @@
 sets itself from hardcoded values. Looks dynamic because it reads from a config
 dict and constructs the env, but no user input ever reaches the command."""
 
-import subprocess
 import os
+import subprocess
 from typing import Any
-
 
 DEFAULT_CONFIG: dict[str, Any] = {
     "database_host": "localhost",

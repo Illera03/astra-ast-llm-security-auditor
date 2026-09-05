@@ -19,7 +19,7 @@ def load_legacy_config(config_text: str) -> dict:
 
 def import_external_config(path: str) -> dict:
     """Import configuration from an external YAML file."""
-    with open(path, "r") as f:
+    with open(path) as f:
         content = f.read()
     return load_legacy_config(content)
 

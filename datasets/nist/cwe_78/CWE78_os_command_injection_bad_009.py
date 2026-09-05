@@ -1,6 +1,6 @@
 """
 CWE-78: OS Command Injection — Vulnerable
-Pattern: subprocess.check_output() with shell=True and user-controlled data from config file
+Pattern: check_output() with shell=True and user-controlled config data
 Reference: CVE-2021-29921 (Python ipaddress/net-tools injection patterns)
 """
 import json

@@ -4,14 +4,13 @@ error handling. User request parameter flows into open() without validation.
 Edge case: high cyclomatic complexity from nested exception handling hides
 the vulnerability from simple pattern matching.
 """
-import os
 import logging
-from typing import Optional
+import os
 
 logger = logging.getLogger(__name__)
 
 
-def fetch_document(request_params: dict) -> Optional[str]:
+def fetch_document(request_params: dict) -> str | None:
     filename = request_params.get("document_name", "")
     base = "/var/documents"
     result = None
@@ -22,11 +21,11 @@ def fetch_document(request_params: dict) -> Optional[str]:
                 logger.warning("File too large: %s", filename)
                 return None
             try:
-                with open(full_path, "r", encoding="utf-8") as fh:
+                with open(full_path, encoding="utf-8") as fh:
                     result = fh.read()
             except UnicodeDecodeError:
                 try:
-                    with open(full_path, "r", encoding="latin-1") as fh:
+                    with open(full_path, encoding="latin-1") as fh:
                         result = fh.read()
                 except Exception as inner:
                     logger.error("Inner read failed: %s", inner)

@@ -6,7 +6,8 @@ Edge case: framework-specific sink (Flask send_file) that AST analysis must
 recognize as dangerous.
 """
 import os
-from flask import Flask, request, send_file, abort
+
+from flask import Flask, abort, request, send_file
 
 app = Flask(__name__)
 
@@ -30,6 +31,6 @@ def preview_file():
     if not filename:
         abort(400)
     path = os.path.join(UPLOAD_FOLDER, filename)
-    with open(path, "r") as fh:
+    with open(path) as fh:
         content = fh.read(4096)
     return {"preview": content}

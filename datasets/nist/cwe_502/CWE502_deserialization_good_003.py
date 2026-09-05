@@ -3,9 +3,8 @@ CWE-502: Insecure Deserialization — Safe
 Pattern: Restricted Unpickler that only allows whitelisted classes.
 Reference: Python docs recommendation for safe pickle usage.
 """
-import pickle
 import io
-
+import pickle
 
 ALLOWED_CLASSES = {
     ("builtins", "dict"),

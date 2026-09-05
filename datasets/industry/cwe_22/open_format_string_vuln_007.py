@@ -6,13 +6,13 @@ sanitization or traversal check before being passed to open().
 
 
 def read_upload(filename):
-    path = "/uploads/{}".format(filename)
-    with open(path, "r") as fh:
+    path = f"/uploads/{filename}"
+    with open(path) as fh:
         return fh.read()
 
 
 def read_avatar(username, avatar_file):
-    path = "/uploads/avatars/{}/{}".format(username, avatar_file)
+    path = f"/uploads/avatars/{username}/{avatar_file}"
     with open(path, "rb") as fh:
         return fh.read()
 

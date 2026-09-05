@@ -6,8 +6,6 @@ Edge case: user input IS present, but the validation is correct — tests
 whether the analyzer can recognize effective sanitization.
 """
 from pathlib import Path
-from typing import Optional
-
 
 ALLOWED_BASE = Path("/srv/user_files").resolve()
 
@@ -24,7 +22,7 @@ class SecureFileReader:
             )
         return target
 
-    def read(self, requested: str) -> Optional[str]:
+    def read(self, requested: str) -> str | None:
         safe_path = self._validate_path(requested)
         if not safe_path.is_file():
             return None

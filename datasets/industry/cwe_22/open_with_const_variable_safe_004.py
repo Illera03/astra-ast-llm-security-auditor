@@ -9,7 +9,7 @@ CERT_PATH = "/etc/ssl/certs/myservice.pem"
 
 
 def read_config():
-    with open(CONFIG_PATH, "r") as fh:
+    with open(CONFIG_PATH) as fh:
         return fh.read()
 
 
