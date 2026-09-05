@@ -36,6 +36,7 @@ ignore = []
 python_version = "3.11"
 strict = true
 ignore_missing_imports = true
+exclude = ["datasets/"]
 
 [dependency-groups]
 dev = [
