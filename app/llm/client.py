@@ -6,6 +6,7 @@ import httpx
 from pydantic import BaseModel, ValidationError
 
 from app.config import settings
+from app.llm.prompts import get_prompt
 from app.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -39,26 +40,7 @@ class OllamaClient:
         Sends the code context to the LLM and parses the JSON response.
         Returns None if the LLM hallucinates or the connection fails.
         """
-        system_prompt = f"""
-        You are a strict security auditor. Analyze this Python code for {cwe_id} 
-        (Command Injection).
-        
-        STRICT EVALUATION RULES:
-        1. Does the code import 'subprocess' or 'os'?
-        2. Does the subprocess call explicitly contain 'shell=True'? 
-        If YES, it is highly likely to be vulnerable.
-        3. Are the arguments passed to the command dynamically constructed 
-        (e.g., f-strings, concatenation) with user input?
-        4. If 'shell=True' is present and arguments are dynamic, it IS exploitable.
-
-        RESPOND STRICTLY IN THIS JSON FORMAT:
-        {{
-            "is_exploitable": true or false,
-            "confidence": 0.9,
-            "exploit_path": "Explain exactly if shell=True is present and if arguments 
-            are dynamic."
-        }}
-        """
+        system_prompt = get_prompt(cwe_id)
 
         payload: dict[str, Any] = {
             "model": self.model_name,
