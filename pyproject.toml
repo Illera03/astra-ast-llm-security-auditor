@@ -14,7 +14,8 @@ dependencies = [
     "structlog (>=25.5.0,<26.0.0)",
     "httpx (>=0.28.1,<0.29.0)",
     "pytest (>=9.0.3,<10.0.0)",
-    "python-dotenv (>=1.2.2,<2.0.0)"
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "pyyaml (>=6.0.3,<7.0.0)"
 ]
 
 
@@ -35,6 +36,7 @@ ignore = []
 python_version = "3.11"
 strict = true
 ignore_missing_imports = true
+exclude = ["datasets/"]
 
 [dependency-groups]
 dev = [
