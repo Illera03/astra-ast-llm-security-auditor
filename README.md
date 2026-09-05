@@ -86,7 +86,7 @@ cp .env.example .env
 ollama pull qwen2.5-coder:7b
 
 # Scan a file
-poetry run python -m app.cli scan demo.py
+poetry run python -m app.cli demo.py
 
 # Run tests
 poetry run pytest tests/unit/ -v
