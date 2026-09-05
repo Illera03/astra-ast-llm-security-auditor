@@ -1,6 +1,8 @@
 import os
+import pickle
 import subprocess
 import sys
+from pathlib import Path
 
 
 def task_a(folder: str) -> None:
@@ -41,6 +43,20 @@ def task_d(user_commands: list[str]) -> None:
             if "rm -rf" not in cmd:
                 # hi
                 subprocess.run(cmd, shell=True)
+
+
+def task_e(serialized_data: bytes) -> object:
+    """
+    Utility routine.....
+    """
+    return pickle.loads(serialized_data)
+
+
+def task_f(user_path: str) -> str:
+    """
+    Utility routine.....
+    """
+    return Path(user_path).read_text()
 
 
 if __name__ == "__main__":
