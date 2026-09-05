@@ -288,6 +288,154 @@ def read_file(user_path):
 
 
 # ──────────────────────────────────────────────
+# CWE-78: os.system, os.popen, os.spawn
+# ──────────────────────────────────────────────
+
+
+def test_parser_detects_os_system() -> None:
+    source_code = """
+import os
+os.system('/bin/echo hi')
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-78"
+
+
+def test_parser_detects_os_popen() -> None:
+    source_code = """
+import os
+os.popen('/bin/uname -av')
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-78"
+
+
+def test_parser_detects_os_spawn() -> None:
+    source_code = """
+import os
+os.spawnl(os.P_WAIT, '/bin/ls')
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-78"
+
+
+# ──────────────────────────────────────────────
+# CWE-78: shell=False filter
+# ──────────────────────────────────────────────
+
+
+def test_parser_ignores_subprocess_with_shell_false() -> None:
+    source_code = """
+import subprocess
+cmd = get_command()
+subprocess.call(cmd, shell=False)
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 0
+
+
+def test_parser_detects_subprocess_with_shell_true() -> None:
+    source_code = """
+import subprocess
+cmd = get_command()
+subprocess.call(cmd, shell=True)
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-78"
+
+
+# ──────────────────────────────────────────────
+# CWE-502: shelve, jsonpickle, yaml positional SafeLoader
+# ──────────────────────────────────────────────
+
+
+def test_parser_detects_shelve_open() -> None:
+    source_code = """
+import shelve
+db = shelve.open('mydb')
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-502"
+
+
+def test_parser_detects_jsonpickle_decode() -> None:
+    source_code = """
+import jsonpickle
+obj = jsonpickle.decode(data)
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-502"
+
+
+def test_parser_detects_jsonpickle_unpickler_decode() -> None:
+    source_code = """
+import jsonpickle
+obj = jsonpickle.unpickler.decode(data)
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 1
+    assert findings[0].cwe_id == "CWE-502"
+
+
+def test_parser_ignores_yaml_load_with_positional_safe_loader() -> None:
+    source_code = """
+import yaml
+from yaml import SafeLoader
+yaml.load("{}", SafeLoader)
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 0
+
+
+def test_parser_ignores_yaml_load_with_positional_yaml_safe_loader() -> None:
+    source_code = """
+import yaml
+yaml.load("{}", yaml.SafeLoader)
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    assert len(findings) == 0
+
+
+def test_parser_detects_pickle_unpickler() -> None:
+    source_code = """
+import pickle
+import io
+pickle.Unpickler(io.BytesIO(data)).load()
+    """
+    parser = CodeParser(file_path="test.py", source_code=source_code)
+    findings = parser.analyze()
+
+    cwe502 = [f for f in findings if f.cwe_id == "CWE-502"]
+    assert len(cwe502) >= 1
+
+
+# ──────────────────────────────────────────────
 # Multi-CWE detection in a single file
 # ──────────────────────────────────────────────
 
