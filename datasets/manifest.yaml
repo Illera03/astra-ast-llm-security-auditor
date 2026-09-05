@@ -1,0 +1,829 @@
+- file: synthetic/cwe_22/open_format_string_vuln_007.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: open("/uploads/{}".format(filename)) with unsanitized
+    filename.'
+- file: synthetic/cwe_22/open_fstring_vuln_004.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: open(f"/data/{user_input}") with f-string path construction.'
+- file: synthetic/cwe_22/open_hardcoded_path_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: open() with a completely hardcoded file path.'
+- file: synthetic/cwe_22/open_resource_pkg_safe_007.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: importlib.resources style path resolution with static resource
+    name.'
+- file: synthetic/cwe_22/open_user_input_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: open(input()) directly with user-supplied filename.'
+- file: synthetic/cwe_22/open_with_const_variable_safe_004.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: file path stored in a module-level constant, then opened.'
+- file: synthetic/cwe_22/os_listdir_static_safe_009.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: os.listdir() with a hardcoded directory path.'
+- file: synthetic/cwe_22/os_path_abspath_literal_safe_005.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: os.path.abspath on a literal string.'
+- file: synthetic/cwe_22/os_path_join_constants_safe_002.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: os.path.join with only string literal arguments.'
+- file: synthetic/cwe_22/os_path_join_user_var_vuln_002.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: os.path.join("/base", user_variable) without validation.'
+- file: synthetic/cwe_22/os_path_traversal_vuln_005.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: os.path.join allows ../ traversal from query parameter.'
+- file: synthetic/cwe_22/pathlib_parent_resolve_safe_006.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: Path(__file__).parent / "data.json" pattern.'
+- file: synthetic/cwe_22/pathlib_resolve_bypass_vuln_006.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: Path resolution without checking the result stays within
+    allowed dir.'
+- file: synthetic/cwe_22/pathlib_static_read_safe_003.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: Path("config.txt").read_text() with a static path.'
+- file: synthetic/cwe_22/pathlib_user_path_vuln_003.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: Path(request_param).read_text() with user-controlled path.'
+- file: synthetic/cwe_22/shutil_copy_static_safe_008.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'Safe: shutil.copy with two hardcoded paths.'
+- file: synthetic/cwe_22/shutil_move_user_dest_vuln_008.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: shutil.move with user-controlled destination path.'
+- file: synthetic/cwe_502/json_loads_safe_003.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Safe: json.loads() is not vulnerable to deserialization attacks.'
+- file: synthetic/cwe_502/marshal_loads_raw_vuln_004.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: marshal.loads on raw bytes from an external source.'
+- file: synthetic/cwe_502/pickle_constant_data_safe_004.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502 Safe: pickle.loads on a hardcoded constant byte literal.'
+- file: synthetic/cwe_502/pickle_dumps_only_safe_006.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502 Safe: Only using pickle.dumps for serialization, not deserialization.'
+- file: synthetic/cwe_502/pickle_load_file_vuln_003.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: pickle.load from a user-controlled file path.'
+- file: synthetic/cwe_502/pickle_loads_base64_vuln_005.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: pickle.loads on base64-decoded cookie data.'
+- file: synthetic/cwe_502/pickle_loads_network_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: pickle.loads on data received from a network socket.'
+- file: synthetic/cwe_502/pickle_loads_redis_vuln_008.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: pickle.loads on data retrieved from an external
+    cache.'
+- file: synthetic/cwe_502/shelve_open_user_vuln_007.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: shelve.open with a user-provided file path.'
+- file: synthetic/cwe_502/shelve_readonly_safe_007.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502 Safe: shelve.open with flag=''r'' on a known static database
+    file.'
+- file: synthetic/cwe_502/xml_defused_parse_safe_008.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502 Safe: XML parsing with safe settings to prevent XXE attacks.'
+- file: synthetic/cwe_502/yaml_load_no_loader_vuln_002.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: yaml.load without specifying a Loader parameter.'
+- file: synthetic/cwe_502/yaml_safe_load_file_safe_005.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502 Safe: yaml.safe_load() reading from a static config file.'
+- file: synthetic/cwe_502/yaml_safe_load_safe_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Safe: yaml.safe_load() usage.'
+- file: synthetic/cwe_502/yaml_safeloader_explicit_safe_002.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502 Safe: yaml.load() with explicit SafeLoader.'
+- file: synthetic/cwe_502/yaml_unsafe_loader_vuln_006.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 Vulnerable: yaml.load with explicit yaml.UnsafeLoader.'
+- file: synthetic/cwe_78/os_popen_user_vuln_006.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: os.popen() with user-controlled filename.'
+- file: synthetic/cwe_78/os_system_hardcoded_safe_005.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: os.system() with a completely hardcoded string.'
+- file: synthetic/cwe_78/os_system_input_vuln_004.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: os.system() with input() directly embedded.'
+- file: synthetic/cwe_78/popen_static_pipeline_safe_007.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.Popen piping two static commands together.'
+- file: synthetic/cwe_78/subprocess_argv_injection_vuln_008.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: sys.argv passed directly to subprocess.run with shell=True.'
+- file: synthetic/cwe_78/subprocess_call_percent_fmt_vuln_007.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: % string formatting with untrusted data in subprocess.call.'
+- file: synthetic/cwe_78/subprocess_check_output_literal_safe_004.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.check_output with hardcoded command.'
+- file: synthetic/cwe_78/subprocess_concat_shell_vuln_002.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: string concatenation of user variable in subprocess.call
+    with shell=True.'
+- file: synthetic/cwe_78/subprocess_constant_cmd_safe_002.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.Popen with a constant command defined at module level.'
+- file: synthetic/cwe_78/subprocess_env_var_shell_vuln_009.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: os.environ value used unsanitized in subprocess.run with
+    shell=True.'
+- file: synthetic/cwe_78/subprocess_format_vuln_003.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: str.format() with user input passed to subprocess.Popen
+    with shell=True.'
+- file: synthetic/cwe_78/subprocess_fstring_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: f-string interpolation of user input in subprocess.run
+    with shell=True.'
+- file: synthetic/cwe_78/subprocess_list_constants_safe_006.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.call with list of string constants defined above.'
+- file: synthetic/cwe_78/subprocess_run_env_override_safe_008.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.run with static cmd but custom env dict.'
+- file: synthetic/cwe_78/subprocess_run_variable_vuln_005.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'Vulnerable: user-supplied variable used as argument in subprocess.run
+    with shell=True.'
+- file: synthetic/cwe_78/subprocess_shell_false_safe_003.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.run with shell=False and static args list.'
+- file: synthetic/cwe_78/subprocess_static_args_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'Safe: subprocess.run with fully hardcoded literal string list args.'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_002.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_003.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_004.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_005.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_006.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_007.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_008.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_bad_009.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Vulnerable'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_002.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_003.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_004.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_005.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_006.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_007.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_22/CWE22_path_traversal_good_008.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: 'CWE-22: Path Traversal — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_002.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_003.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_004.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_005.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_006.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_007.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_bad_008.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Vulnerable'
+- file: synthetic/cwe_502/CWE502_deserialization_good_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_002.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_003.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_004.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_005.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_006.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_007.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_502/CWE502_deserialization_good_008.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Insecure Deserialization — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_002.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_003.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_004.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_005.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_006.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_007.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_008.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_bad_009.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Vulnerable'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_002.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_003.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_004.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_005.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_006.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_007.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_78/CWE78_os_command_injection_good_008.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: OS Command Injection — Safe'
+- file: synthetic/cwe_22/aliased_open_builtin_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | open() aliased as file_reader but only used with hardcoded
+    paths.
+- file: synthetic/cwe_22/async_context_manager_open_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | open() inside async context manager.
+- file: synthetic/cwe_22/chroot_style_path_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | Chroot-style path jail implementation.
+- file: synthetic/cwe_22/class_attribute_path_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Path traversal through class attribute.
+- file: synthetic/cwe_22/config_file_read_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | Config read from hardcoded path only.
+- file: synthetic/cwe_22/dataclass_file_handler_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Dataclass with file_path used directly in open().
+- file: synthetic/cwe_22/flask_send_file_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Flask route using send_file() with user-provided
+    filename.
+- file: synthetic/cwe_22/incomplete_dotdot_check_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Incomplete path validation.
+- file: synthetic/cwe_22/multi_func_path_build_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Path constructed through multiple function calls.
+- file: synthetic/cwe_22/nested_try_path_open_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Deeply nested try/except/finally around open().
+- file: synthetic/cwe_22/os_path_join_realpath_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | Correct use of os.path.realpath() after os.path.join().
+- file: synthetic/cwe_22/path_concat_in_comprehension_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Path built via string concatenation inside a
+    list comprehension.
+- file: synthetic/cwe_22/pathlib_decorator_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | pathlib.Path with dynamic user arg inside a decorator.
+- file: synthetic/cwe_22/pathlib_resolve_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | Proper path containment using pathlib.Path.resolve().
+- file: synthetic/cwe_22/pathlib_with_suffix_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | pathlib with forced suffix and directory validation.
+- file: synthetic/cwe_22/symlink_follow_vuln_001.py
+  cwe_id: CWE-22
+  expected: vulnerable
+  source: synthetic
+  description: CWE-22 | VULNERABLE | Checks for '..' but follows symlinks.
+- file: synthetic/cwe_22/tempfile_operations_safe_001.py
+  cwe_id: CWE-22
+  expected: safe
+  source: synthetic
+  description: CWE-22 | SAFE | All paths are system-generated via tempfile module.
+- file: synthetic/cwe_502/aliased_pickle_loads_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Aliased pickle.loads import — VULNERABLE.'
+- file: synthetic/cwe_502/async_pickle_loads_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: pickle.loads inside async function — VULNERABLE.'
+- file: synthetic/cwe_502/conditional_deserialize_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: Conditional deserialization — VULNERABLE.'
+- file: synthetic/cwe_502/hmac_verified_pickle_safe_001.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: HMAC-verified pickle.loads — SAFE.'
+- file: synthetic/cwe_502/json_loads_safe_001.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: json.loads only — SAFE (red-herring variable names).'
+- file: synthetic/cwe_502/json_schema_validated_safe_001.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: JSON with schema validation — SAFE.'
+- file: synthetic/cwe_502/jsonpickle_decode_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: jsonpickle.decode on user input — VULNERABLE.'
+- file: synthetic/cwe_502/marshal_loads_try_except_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: marshal.loads hidden by try/except — VULNERABLE.'
+- file: synthetic/cwe_502/msgpack_with_raw_false_safe_001.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: msgpack.unpackb with raw=False — SAFE.'
+- file: synthetic/cwe_502/multi_vuln_pickle_and_cmd_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502 + CWE-78: pickle.loads AND subprocess shell injection — VULNERABLE.'
+- file: synthetic/cwe_502/pickle_in_dataclass_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: pickle.loads in dataclass classmethod — VULNERABLE.'
+- file: synthetic/cwe_502/protocol_buffers_safe_001.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: Protocol Buffers deserialization — SAFE.'
+- file: synthetic/cwe_502/restricted_unpickler_safe_001.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: RestrictedUnpickler — SAFE.'
+- file: synthetic/cwe_502/shelve_open_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: shelve.open with user-controlled filename — VULNERABLE.'
+- file: synthetic/cwe_502/yaml_load_constructor_vuln_001.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-502: yaml.load without SafeLoader in __init__ — VULNERABLE.'
+- file: synthetic/cwe_502/yaml_safe_load_safe_002.py
+  cwe_id: CWE-502
+  expected: safe
+  source: synthetic
+  description: 'CWE-502: yaml.safe_load — SAFE.'
+- file: synthetic/cwe_78/aliased_import_subprocess_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Aliased imports: `from subprocess import run
+    as execute`'
+- file: synthetic/cwe_78/async_subprocess_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — async function calls asyncio.create_subprocess_shell'
+- file: synthetic/cwe_78/class_method_chain_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Command injection through class method chaining.
+    A builder'
+- file: synthetic/cwe_78/constant_variable_subprocess_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: SAFE — Red herring. Variable named `user_cmd` looks dynamic
+    but is'
+- file: synthetic/cwe_78/dataclass_cmd_builder_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Dataclass fields used to build a shell command
+    string.'
+- file: synthetic/cwe_78/decorator_subprocess_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: SAFE — Decorator applies shlex.quote to all string arguments
+    before'
+- file: synthetic/cwe_78/envvar_subprocess_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: SAFE — subprocess.run uses only environment variables that
+    the program'
+- file: synthetic/cwe_78/generator_pipeline_subprocess_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: SAFE — Generators and itertools process user data, but subprocess.run'
+- file: synthetic/cwe_78/multiline_fstring_cmd_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Command built using a multi-line f-string with
+    user input'
+- file: synthetic/cwe_78/nested_if_subprocess_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — subprocess.run with shell=True buried inside
+    deeply nested'
+- file: synthetic/cwe_78/os_system_in_lambda_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — os.system called inside a lambda stored in a
+    dict.'
+- file: synthetic/cwe_78/partial_sanitize_subprocess_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Sanitization is present but incomplete. The code
+    strips'
+- file: synthetic/cwe_78/popen_with_split_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Uses subprocess.Popen with shlex.split on a'
+- file: synthetic/cwe_78/string_format_loop_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — Command string built incrementally via string
+    formatting'
+- file: synthetic/cwe_78/subprocess_list_args_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: SAFE — subprocess.run with list arguments and no shell=True.
+    User input'
+- file: synthetic/cwe_78/try_except_os_system_vuln_001.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: synthetic
+  description: 'CWE-78: VULNERABLE — os.system called inside an except block during
+    error'
+- file: synthetic/cwe_78/whitelist_check_subprocess_safe_001.py
+  cwe_id: CWE-78
+  expected: safe
+  source: synthetic
+  description: 'CWE-78: SAFE — Command validated against a strict whitelist before
+    execution.'
+- file: external_bandit/subprocess_shell.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: subprocess with shell=True, various patterns including
+    dynamic args'
+- file: external_bandit/os_system.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: os.system() with hardcoded command'
+- file: external_bandit/os-popen.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: os.popen variants with aliased imports and dynamic
+    args'
+- file: external_bandit/os-spawn.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: os.spawn* variants with dynamic path args'
+- file: external_bandit/popen_wrappers.py
+  cwe_id: CWE-78
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: commands.getoutput and popen2 module wrappers'
+- file: external_bandit/pickle_deserialize.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: pickle.loads, pickle.load, pickle.Unpickler'
+- file: external_bandit/marshal_deserialize.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: marshal.loads and marshal.load round-trip'
+- file: external_bandit/yaml_load.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: yaml.load without Loader and with SafeLoader'
+- file: external_bandit/shelve_open.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: shelve.open deserialization'
+- file: external_bandit/jsonpickle.py
+  cwe_id: CWE-502
+  expected: vulnerable
+  source: external_bandit
+  description: 'Bandit test suite: jsonpickle.decode and unpickler'
