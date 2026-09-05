@@ -20,4 +20,5 @@ poetry.lock
 .astra_cache.db
 
 # Outputs
-*.json
+benchmarks/results/*.csv
+benchmarks/results/*.json
