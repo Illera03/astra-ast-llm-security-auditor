@@ -52,7 +52,7 @@ class OllamaClient:
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.post(
-                    f"{self.base_url}/api/generate", json=payload, timeout=30.0
+                    f"{self.base_url}/api/generate", json=payload, timeout=120.0
                 )
                 response.raise_for_status()
 
@@ -92,10 +92,18 @@ class OllamaClient:
                     )
                     return None
 
+            except httpx.HTTPStatusError as e:
+                logger.error(
+                    "ollama_request_failed",
+                    error=f"{type(e).__name__}: {e.response.status_code}",
+                    model=self.model_name,
+                    base_url=self.base_url,
+                )
+                return None
             except httpx.RequestError as e:
                 logger.error(
                     "ollama_request_failed",
-                    error=str(e),
+                    error=f"{type(e).__name__}: {e}",
                     model=self.model_name,
                     base_url=self.base_url,
                 )

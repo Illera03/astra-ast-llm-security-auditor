@@ -5,9 +5,7 @@ from benchmarks.evaluate import run_benchmark
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="ASTra Benchmark Evaluator"
-    )
+    parser = argparse.ArgumentParser(description="ASTra Benchmark Evaluator")
     parser.add_argument(
         "--manifest",
         default="datasets/manifest.yaml",
@@ -16,8 +14,8 @@ def main() -> None:
     parser.add_argument(
         "--concurrency",
         type=int,
-        default=10,
-        help="Max concurrent ASTra LLM calls (default: 10)",
+        default=2,
+        help="Max concurrent ASTra LLM calls (default: 2)",
     )
     parser.add_argument(
         "--output-dir",
@@ -37,13 +35,15 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    asyncio.run(run_benchmark(
-        manifest_path=args.manifest,
-        concurrency=args.concurrency,
-        output_dir=args.output_dir,
-        formats=args.format,
-        tools=args.tools,
-    ))
+    asyncio.run(
+        run_benchmark(
+            manifest_path=args.manifest,
+            concurrency=args.concurrency,
+            output_dir=args.output_dir,
+            formats=args.format,
+            tools=args.tools,
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -22,3 +22,7 @@ poetry.lock
 # Outputs
 benchmarks/results/*.csv
 benchmarks/results/*.json
+informe_demo.json
+
+# External archives
+*.zip
