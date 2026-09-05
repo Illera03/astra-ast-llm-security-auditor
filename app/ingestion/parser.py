@@ -51,6 +51,7 @@ class ASTSecurityVisitor(ast.NodeVisitor):
         "pickle": {
             "loads": SeverityLevel.CRITICAL,
             "load": SeverityLevel.CRITICAL,
+            "Unpickler": SeverityLevel.CRITICAL,
         },
         "marshal": {
             "loads": SeverityLevel.CRITICAL,
@@ -59,9 +60,30 @@ class ASTSecurityVisitor(ast.NodeVisitor):
         "yaml": {
             "load": SeverityLevel.HIGH,
         },
+        "shelve": {
+            "open": SeverityLevel.HIGH,
+        },
+        "jsonpickle": {
+            "decode": SeverityLevel.CRITICAL,
+        },
     }
 
+    JSONPICKLE_DEEP_FUNCTIONS = {"decode", "Unpickler"}
+
     SUBPROCESS_FUNCTIONS = {"run", "Popen", "call", "check_output"}
+
+    OS_EXEC_FUNCTIONS = {"system", "popen", "popen2", "popen3", "popen4"}
+
+    OS_SPAWN_FUNCTIONS = {
+        "spawnl",
+        "spawnle",
+        "spawnlp",
+        "spawnlpe",
+        "spawnv",
+        "spawnve",
+        "spawnvp",
+        "spawnvpe",
+    }
 
     PATH_IO_METHODS = {
         "read_text",
@@ -114,9 +136,7 @@ class ASTSecurityVisitor(ast.NodeVisitor):
         heuristic = self.SEVERITY_MAP[severity]
 
         if self.current_function:
-            snippet = ast.get_source_segment(
-                self.source_code, self.current_function
-            )
+            snippet = ast.get_source_segment(self.source_code, self.current_function)
         else:
             snippet = ast.get_source_segment(self.source_code, node)
 
@@ -134,24 +154,71 @@ class ASTSecurityVisitor(ast.NodeVisitor):
         )
         self.findings.append(finding)
 
+    def _has_shell_false(self, node: ast.Call) -> bool:
+        for kw in node.keywords:
+            if kw.arg == "shell" and isinstance(kw.value, ast.Constant):
+                if kw.value.value is False or kw.value.value == 0:
+                    return True
+        return False
+
     def _check_command_injection(self, node: ast.Call) -> None:
-        func_name = ""
+        if isinstance(node.func, ast.Attribute) and isinstance(
+            node.func.value, ast.Name
+        ):
+            module = node.func.value.id
+            func_name = node.func.attr
 
-        if isinstance(node.func, ast.Attribute):
-            if (
-                isinstance(node.func.value, ast.Name)
-                and node.func.value.id == "subprocess"
+            if module == "subprocess" and func_name in self.SUBPROCESS_FUNCTIONS:
+                if self._has_dynamic_args(node) and not self._has_shell_false(node):
+                    self._add_finding(node, "CWE-78", SeverityLevel.HIGH)
+                return
+
+            if module == "os" and func_name in self.OS_EXEC_FUNCTIONS:
+                self._add_finding(node, "CWE-78", SeverityLevel.HIGH)
+                return
+
+            if module == "os" and func_name in self.OS_SPAWN_FUNCTIONS:
+                self._add_finding(node, "CWE-78", SeverityLevel.HIGH)
+                return
+
+        if isinstance(node.func, ast.Name):
+            if node.func.id in self.SUBPROCESS_FUNCTIONS and self._has_dynamic_args(
+                node
             ):
-                func_name = node.func.attr
-        elif isinstance(node.func, ast.Name):
-            func_name = node.func.id
+                if not self._has_shell_false(node):
+                    self._add_finding(node, "CWE-78", SeverityLevel.HIGH)
 
-        if func_name in self.SUBPROCESS_FUNCTIONS and self._has_dynamic_args(node):
-            self._add_finding(node, "CWE-78", SeverityLevel.HIGH)
+    SAFE_YAML_LOADERS = {"SafeLoader", "CSafeLoader", "BaseLoader"}
+
+    def _is_safe_yaml_loader(self, node: ast.Call) -> bool:
+        for kw in node.keywords:
+            if kw.arg == "Loader":
+                if isinstance(kw.value, ast.Attribute):
+                    if kw.value.attr in self.SAFE_YAML_LOADERS:
+                        return True
+                if isinstance(kw.value, ast.Name):
+                    if kw.value.id in self.SAFE_YAML_LOADERS:
+                        return True
+        for arg in node.args:
+            if isinstance(arg, ast.Attribute) and arg.attr in self.SAFE_YAML_LOADERS:
+                return True
+            if isinstance(arg, ast.Name) and arg.id in self.SAFE_YAML_LOADERS:
+                return True
+        return False
 
     def _check_insecure_deserialization(self, node: ast.Call) -> None:
         if not isinstance(node.func, ast.Attribute):
             return
+
+        if isinstance(node.func.value, ast.Attribute):
+            if (
+                isinstance(node.func.value.value, ast.Name)
+                and node.func.value.value.id == "jsonpickle"
+                and node.func.value.attr == "unpickler"
+                and node.func.attr in ("decode", "Unpickler")
+            ):
+                self._add_finding(node, "CWE-502", SeverityLevel.CRITICAL)
+                return
 
         if not isinstance(node.func.value, ast.Name):
             return
@@ -168,10 +235,12 @@ class ASTSecurityVisitor(ast.NodeVisitor):
             return
 
         if module_name == "yaml" and func_name == "load":
-            for kw in node.keywords:
-                if kw.arg == "Loader" and isinstance(kw.value, ast.Attribute):
-                    if kw.value.attr in ("SafeLoader", "CSafeLoader", "BaseLoader"):
-                        return
+            if self._is_safe_yaml_loader(node):
+                return
+
+        if module_name in ("shelve", "jsonpickle") or func_name == "Unpickler":
+            self._add_finding(node, "CWE-502", severity)
+            return
 
         if not self._has_dynamic_args(node):
             return

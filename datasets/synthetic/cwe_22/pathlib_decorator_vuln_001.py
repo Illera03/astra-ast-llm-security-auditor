@@ -3,6 +3,7 @@ The decorator wraps file operations with logging but does not sanitize the
 path argument. User-controlled input flows directly into Path().
 Edge case: decorator indirection hides the dangerous sink from simple AST walks.
 """
+
 import logging
 from collections.abc import Callable
 from functools import wraps
@@ -19,6 +20,7 @@ def log_file_access(func: Callable) -> Callable:
         result = func(filepath, *args, **kwargs)
         logger.info("Finished accessing: %s", filepath)
         return result
+
     return wrapper
 
 

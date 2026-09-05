@@ -4,6 +4,7 @@ parameter named 'filename', no user input ever reaches a file operation.
 Edge case: aliased builtins + misleading parameter names should not trigger
 false positives.
 """
+
 import json
 from typing import Any
 

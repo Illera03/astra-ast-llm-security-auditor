@@ -41,16 +41,18 @@ def test_manifest_entries_have_required_fields() -> None:
 
 def test_dataset_file_count() -> None:
     entries = _load_manifest()
-    assert len(entries) == 150
+    assert len(entries) == 160
 
 
 def test_dataset_source_distribution() -> None:
     entries = _load_manifest()
     source_counts = Counter(e["source"] for e in entries)
-    for source in ("industry", "nist", "synthetic"):
-        assert source_counts[source] == 50, (
-            f"{source} has {source_counts[source]} files, expected 50"
-        )
+    assert source_counts["synthetic"] == 150, (
+        f"synthetic has {source_counts['synthetic']} files, expected 150"
+    )
+    assert source_counts["external_bandit"] == 10, (
+        f"external_bandit has {source_counts['external_bandit']} files, expected 10"
+    )
 
 
 def test_all_dataset_files_are_valid_python() -> None:

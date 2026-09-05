@@ -3,6 +3,7 @@ User-controlled base_path is concatenated with filenames inside a comprehension,
 and each constructed path is opened and read without validation.
 Edge case: vulnerability hidden inside a comprehension expression.
 """
+
 import os
 
 ALLOWED_EXTENSIONS = {".txt", ".csv", ".log", ".json"}
@@ -30,9 +31,7 @@ def bulk_read_files(
     return results
 
 
-def search_in_files(
-    base_path: str, filenames: list[str], query: str
-) -> list[str]:
+def search_in_files(base_path: str, filenames: list[str], query: str) -> list[str]:
     matches = []
     for entry in bulk_read_files(base_path, filenames):
         if entry["content"] and query in entry["content"]:

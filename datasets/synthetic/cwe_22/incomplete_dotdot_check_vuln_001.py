@@ -5,6 +5,7 @@ unicode normalization tricks.
 Edge case: presence of a validation function misleads AST analysis into
 thinking the path is safe.
 """
+
 import os
 from urllib.parse import unquote
 

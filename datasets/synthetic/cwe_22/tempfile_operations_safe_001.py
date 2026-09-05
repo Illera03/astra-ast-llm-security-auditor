@@ -4,6 +4,7 @@ path components at any point.
 Edge case: file operations are present (open, write, read) but all paths
 come from the OS, not from user input. Tests false-positive rate.
 """
+
 import json
 import os
 import tempfile

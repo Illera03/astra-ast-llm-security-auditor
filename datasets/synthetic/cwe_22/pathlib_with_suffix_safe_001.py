@@ -5,6 +5,7 @@ directory. Both constraints together make this safe.
 Edge case: user input IS present but constrained by suffix forcing AND
 directory containment — tests whether analyzer handles combined mitigations.
 """
+
 from pathlib import Path
 
 NOTES_DIR = Path("/srv/notes").resolve()

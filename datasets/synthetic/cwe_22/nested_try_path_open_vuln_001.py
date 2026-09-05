@@ -4,6 +4,7 @@ error handling. User request parameter flows into open() without validation.
 Edge case: high cyclomatic complexity from nested exception handling hides
 the vulnerability from simple pattern matching.
 """
+
 import logging
 import os
 

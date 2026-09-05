@@ -14,10 +14,10 @@ def sanitize_args(func: Callable[..., Any]) -> Callable[..., Any]:
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         safe_args = tuple(shlex.quote(a) if isinstance(a, str) else a for a in args)
         safe_kwargs = {
-            k: shlex.quote(v) if isinstance(v, str) else v
-            for k, v in kwargs.items()
+            k: shlex.quote(v) if isinstance(v, str) else v for k, v in kwargs.items()
         }
         return func(*safe_args, **safe_kwargs)
+
     return wrapper
 
 

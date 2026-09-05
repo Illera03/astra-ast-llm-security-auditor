@@ -13,7 +13,8 @@ def run_semgrep(datasets_dir: str) -> dict[str, list[dict[str, str]]]:
             [
                 "semgrep",
                 "--json",
-                "--config", "auto",
+                "--config",
+                "auto",
                 "--quiet",
                 datasets_dir,
             ],
@@ -53,16 +54,18 @@ def evaluate_entries(
         predicted = "vulnerable" if file_findings else "safe"
         tp, fp, tn, fn = classify_result(entry.expected, predicted)
 
-        results.append(EvaluationResult(
-            tool=ToolName.SEMGREP,
-            file=entry.file,
-            cwe_id=entry.cwe_id,
-            expected=entry.expected,
-            predicted=predicted,
-            true_positive=tp,
-            false_positive=fp,
-            true_negative=tn,
-            false_negative=fn,
-        ))
+        results.append(
+            EvaluationResult(
+                tool=ToolName.SEMGREP,
+                file=entry.file,
+                cwe_id=entry.cwe_id,
+                expected=entry.expected,
+                predicted=predicted,
+                true_positive=tp,
+                false_positive=fp,
+                true_negative=tn,
+                false_negative=fn,
+            )
+        )
 
     return results

@@ -3,6 +3,7 @@ Edge case: protobuf's ParseFromString looks like deserialization (and it
 is), but protocol buffers are type-safe and do not allow arbitrary code
 execution.  Scanners should not flag this.
 """
+
 from typing import TypeVar
 
 from google.protobuf.message import Message

@@ -3,6 +3,7 @@ Edge case: the vulnerability is wrapped in broad exception handling that
 silently logs errors.  The try/except makes static analysis harder and
 gives a false sense of safety.
 """
+
 import logging
 import marshal
 from typing import Any

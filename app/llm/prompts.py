@@ -11,7 +11,7 @@ PROMPT_TEMPLATES: dict[str, str] = {
         "4. If 'shell=True' is present and arguments are dynamic, "
         "it IS exploitable.\n\n"
         "RESPOND STRICTLY IN THIS JSON FORMAT:\n"
-        '{\n'
+        "{\n"
         '    "is_exploitable": true or false,\n'
         '    "confidence": 0.9,\n'
         '    "exploit_path": "Explain exactly if shell=True is present and if '
@@ -31,7 +31,7 @@ PROMPT_TEMPLATES: dict[str, str] = {
         "5. pickle and marshal ALWAYS allow arbitrary code execution during "
         "deserialization — if the source is untrusted, it IS exploitable.\n\n"
         "RESPOND STRICTLY IN THIS JSON FORMAT:\n"
-        '{\n'
+        "{\n"
         '    "is_exploitable": true or false,\n'
         '    "confidence": 0.9,\n'
         '    "exploit_path": "Explain exactly what deserialization function is used '
@@ -51,7 +51,7 @@ PROMPT_TEMPLATES: dict[str, str] = {
         "5. If user input reaches a file operation without sanitization, "
         "it IS exploitable.\n\n"
         "RESPOND STRICTLY IN THIS JSON FORMAT:\n"
-        '{\n'
+        "{\n"
         '    "is_exploitable": true or false,\n'
         '    "confidence": 0.9,\n'
         '    "exploit_path": "Explain exactly how user input reaches the file '

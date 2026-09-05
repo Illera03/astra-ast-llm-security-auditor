@@ -3,6 +3,7 @@ Edge case: `from pickle import loads as deserialize` hides the dangerous
 function behind a benign-looking alias. AST scanners that only match
 `pickle.loads` by qualified name will miss this.
 """
+
 import socket
 from pickle import loads as deserialize
 from typing import Any

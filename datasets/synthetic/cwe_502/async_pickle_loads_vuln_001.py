@@ -3,6 +3,7 @@ Edge case: the deserialization happens inside an async coroutine that
 reads from a network stream.  Scanners that only analyze synchronous
 call graphs may miss async patterns.
 """
+
 import asyncio
 import pickle
 from typing import Any

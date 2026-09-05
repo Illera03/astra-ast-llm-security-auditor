@@ -4,6 +4,7 @@ its real path and verified to remain under the allowed directory.
 Edge case: uses os.path (not pathlib) but is still safe — tests whether
 the analyzer understands os-level path resolution.
 """
+
 import os
 
 SAFE_ROOT = "/opt/appdata/user_files"

@@ -4,6 +4,7 @@ the result is validated against a strict JSON schema.  No pickle, yaml,
 or marshal is used.  The word 'deserialize' appears frequently as a red
 herring.
 """
+
 import json
 from typing import Any
 

@@ -3,6 +3,7 @@ Edge case: YAML is used, but exclusively via yaml.safe_load(), which
 does not allow arbitrary Python object instantiation.  A naïve scanner
 that flags any `yaml.load*` call would produce a false positive.
 """
+
 from pathlib import Path
 from typing import Any
 

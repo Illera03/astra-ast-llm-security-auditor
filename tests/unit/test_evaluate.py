@@ -18,9 +18,7 @@ def test_load_manifest_parses_valid_yaml() -> None:
   source: "industry"
   description: "safe case"
 """
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".yaml", delete=False
-    ) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
         f.write(content)
         f.flush()
 

@@ -5,6 +5,7 @@ even with symlinks and encoded components.
 Edge case: user input IS present, but the validation is correct — tests
 whether the analyzer can recognize effective sanitization.
 """
+
 from pathlib import Path
 
 ALLOWED_BASE = Path("/srv/user_files").resolve()

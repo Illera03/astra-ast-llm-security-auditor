@@ -3,6 +3,7 @@ Variable is named 'user_config_path' (red herring) but its value is always a
 string literal. No user input ever reaches any file open() call.
 Edge case: misleading variable names should not cause false positives.
 """
+
 import json
 from typing import Any
 

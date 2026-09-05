@@ -28,6 +28,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+exclude = ["datasets/external_bandit/"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP", "B"]
