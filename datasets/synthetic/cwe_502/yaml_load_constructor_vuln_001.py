@@ -3,6 +3,7 @@ Edge case: the dangerous call is buried inside a class constructor,
 making it harder for function-level scanners to flag.  The config file
 path comes from user-uploaded content.
 """
+
 from pathlib import Path
 from typing import Any
 

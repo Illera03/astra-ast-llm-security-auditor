@@ -5,6 +5,7 @@ no path validation.
 Edge case: framework-specific sink (Flask send_file) that AST analysis must
 recognize as dangerous.
 """
+
 import os
 
 from flask import Flask, abort, request, send_file

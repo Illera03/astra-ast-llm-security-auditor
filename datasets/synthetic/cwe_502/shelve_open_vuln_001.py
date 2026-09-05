@@ -3,6 +3,7 @@ Edge case: shelve internally uses pickle, but the import is `shelve`
 not `pickle`.  Scanners that only look for pickle/yaml/marshal imports
 will miss this entirely.
 """
+
 import shelve
 from pathlib import Path
 from typing import Any

@@ -3,9 +3,7 @@ from collections import defaultdict
 from benchmarks.schemas import BenchmarkSummary, EvaluationResult, ToolName
 
 
-def classify_result(
-    expected: str, predicted: str
-) -> tuple[bool, bool, bool, bool]:
+def classify_result(expected: str, predicted: str) -> tuple[bool, bool, bool, bool]:
     tp = expected == "vulnerable" and predicted == "vulnerable"
     fp = expected == "safe" and predicted == "vulnerable"
     tn = expected == "safe" and predicted == "safe"

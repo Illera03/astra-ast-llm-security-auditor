@@ -3,6 +3,7 @@ User input flows through get_base(), get_subpath(), and os.path.join without
 any validation or sanitization at any stage.
 Edge case: multi-hop data flow challenges taint tracking in AST analysis.
 """
+
 import os
 
 
@@ -20,9 +21,7 @@ def build_full_path(tenant_id: str, category: str, filename: str) -> str:
     return os.path.join(base, sub)
 
 
-def read_tenant_file(
-    tenant_id: str, category: str, filename: str
-) -> str | None:
+def read_tenant_file(tenant_id: str, category: str, filename: str) -> str | None:
     full_path = build_full_path(tenant_id, category, filename)
     try:
         with open(full_path) as fh:
@@ -33,6 +32,7 @@ def read_tenant_file(
 
 if __name__ == "__main__":
     import sys
+
     content = read_tenant_file(sys.argv[1], sys.argv[2], sys.argv[3])
     if content:
         print(content)

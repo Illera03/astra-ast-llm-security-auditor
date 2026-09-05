@@ -4,6 +4,7 @@ this field directly with open() — no validation between construction and use.
 Edge case: dataclass pattern with type hints may look structured/safe but
 the field value is never sanitized.
 """
+
 from dataclasses import dataclass, field
 from datetime import datetime
 
@@ -25,10 +26,12 @@ class FileRequest:
 
     def exists(self) -> bool:
         import os
+
         return os.path.isfile(self.file_path)
 
     def size(self) -> int:
         import os
+
         try:
             return os.path.getsize(self.file_path)
         except OSError:

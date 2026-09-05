@@ -3,6 +3,7 @@ Edge case: the vulnerability lives inside a @classmethod factory of a
 @dataclass.  This pattern is idiomatic modern Python and may evade
 scanners that don't recurse into class bodies.
 """
+
 import pickle
 from dataclasses import dataclass, field
 from typing import Any, Self
@@ -29,11 +30,13 @@ class CacheEntry:
         )
 
     def to_bytes(self) -> bytes:
-        return pickle.dumps({
-            "value": self.value,
-            "ttl": self.ttl,
-            "tags": self.tags,
-        })
+        return pickle.dumps(
+            {
+                "value": self.value,
+                "ttl": self.ttl,
+                "tags": self.tags,
+            }
+        )
 
 
 def get_cache_entry(redis_client, cache_key: str) -> CacheEntry | None:

@@ -4,6 +4,7 @@ uses os.path.join (not os.path.realpath) so symlinks within the allowed
 directory can point to arbitrary locations outside it.
 Edge case: validation is present but insufficient — symlinks bypass the check.
 """
+
 import os
 
 MEDIA_ROOT = "/var/www/media"

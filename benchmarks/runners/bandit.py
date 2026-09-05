@@ -45,23 +45,26 @@ def evaluate_entries(
         file_findings = findings_by_file.get(resolved, [])
 
         medium_or_above = [
-            f for f in file_findings
+            f
+            for f in file_findings
             if f.get("issue_severity", "LOW") in ("MEDIUM", "HIGH")
         ]
 
         predicted = "vulnerable" if medium_or_above else "safe"
         tp, fp, tn, fn = classify_result(entry.expected, predicted)
 
-        results.append(EvaluationResult(
-            tool=ToolName.BANDIT,
-            file=entry.file,
-            cwe_id=entry.cwe_id,
-            expected=entry.expected,
-            predicted=predicted,
-            true_positive=tp,
-            false_positive=fp,
-            true_negative=tn,
-            false_negative=fn,
-        ))
+        results.append(
+            EvaluationResult(
+                tool=ToolName.BANDIT,
+                file=entry.file,
+                cwe_id=entry.cwe_id,
+                expected=entry.expected,
+                predicted=predicted,
+                true_positive=tp,
+                false_positive=fp,
+                true_negative=tn,
+                false_negative=fn,
+            )
+        )
 
     return results

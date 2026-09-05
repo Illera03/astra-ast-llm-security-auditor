@@ -4,6 +4,7 @@ read_file via string concatenation. The distance between taint source
 (constructor) and sink (read_file) challenges AST-based analysis.
 Edge case: cross-method data flow within a class.
 """
+
 import os
 
 

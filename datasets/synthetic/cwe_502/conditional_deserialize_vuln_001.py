@@ -3,6 +3,7 @@ Edge case: one branch uses safe json.loads, but the other branch uses
 pickle.loads.  The unsafe branch is reachable when the user-supplied
 content-type header is 'application/x-python-pickle'.
 """
+
 import json
 import pickle
 from typing import Any

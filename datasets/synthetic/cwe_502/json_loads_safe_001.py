@@ -3,6 +3,7 @@ Edge case: variable names like `serialized_obj`, `unpickled`, and
 `deserialized_payload` look suspicious, but only stdlib json is used.
 AST scanners should not flag this file.
 """
+
 import json
 from typing import Any
 

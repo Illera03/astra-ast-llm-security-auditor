@@ -5,6 +5,7 @@ Edge case: complex class with multiple file operations, but all go through
 the jail check. Tests whether the analyzer can propagate safety through a
 shared validation method.
 """
+
 import os
 
 

@@ -6,23 +6,23 @@ import subprocess
 import sys
 from typing import Final
 
-ALLOWED_COMMANDS: Final[frozenset[str]] = frozenset({
-    "df -h",
-    "free -m",
-    "uptime",
-    "whoami",
-    "uname -a",
-    "ps aux --sort=-%mem | head -10",
-})
+ALLOWED_COMMANDS: Final[frozenset[str]] = frozenset(
+    {
+        "df -h",
+        "free -m",
+        "uptime",
+        "whoami",
+        "uname -a",
+        "ps aux --sort=-%mem | head -10",
+    }
+)
 
 
 def run_system_check(command_name: str) -> str | None:
     normalized = command_name.strip().lower()
     for allowed in ALLOWED_COMMANDS:
         if normalized == allowed:
-            result = subprocess.run(
-                allowed, shell=True, capture_output=True, text=True
-            )
+            result = subprocess.run(allowed, shell=True, capture_output=True, text=True)
             return result.stdout
     return None
 

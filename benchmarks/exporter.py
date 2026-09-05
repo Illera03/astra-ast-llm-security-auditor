@@ -9,17 +9,37 @@ def export_csv(summaries: list[BenchmarkSummary], output_path: str) -> None:
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([
-            "tool", "source", "cwe_id",
-            "precision", "recall", "f1_score",
-            "tp", "fp", "tn", "fn", "total",
-        ])
+        writer.writerow(
+            [
+                "tool",
+                "source",
+                "cwe_id",
+                "precision",
+                "recall",
+                "f1_score",
+                "tp",
+                "fp",
+                "tn",
+                "fn",
+                "total",
+            ]
+        )
         for s in summaries:
-            writer.writerow([
-                s.tool, s.source, s.cwe_id,
-                s.precision, s.recall, s.f1_score,
-                s.tp, s.fp, s.tn, s.fn, s.total,
-            ])
+            writer.writerow(
+                [
+                    s.tool,
+                    s.source,
+                    s.cwe_id,
+                    s.precision,
+                    s.recall,
+                    s.f1_score,
+                    s.tp,
+                    s.fp,
+                    s.tn,
+                    s.fn,
+                    s.total,
+                ]
+            )
 
 
 def export_table(summaries: list[BenchmarkSummary]) -> str:
