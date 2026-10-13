@@ -92,6 +92,35 @@ poetry run python -m app.cli demo.py
 poetry run pytest tests/unit/ -v
 ```
 
+## Run with Docker
+
+Everything (the scanner and Ollama) runs in containers, with no local Python or
+Ollama install required.
+
+```bash
+# Build the image
+docker compose build
+
+# Start Ollama and download the model (first run only, ~4.7 GB)
+docker compose up -d ollama
+docker compose run --rm model-setup
+
+# Scan a file (paths are relative to the repository, mounted at /workspace)
+docker compose run --rm astra demo.py
+
+# JSON report
+docker compose run --rm astra demo.py --format json -o report.json
+```
+
+Override the model via the `ASTRA_MODEL` environment variable:
+
+```bash
+ASTRA_MODEL=qwen2.5-coder:1.5b docker compose run --rm astra demo.py
+```
+
+> **Note:** Ollama runs on CPU by default. To use an NVIDIA GPU on Linux, uncomment
+> the `deploy` block in `docker-compose.yml` and install `nvidia-container-toolkit`.
+
 ## Tech Stack
 
 - **ast (stdlib)** — AST parsing and vulnerability pattern detection
