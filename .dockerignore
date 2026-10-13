@@ -1,0 +1,31 @@
+# Version control / CI
+.git
+.github
+
+# Editors and caches
+.vscode
+.mypy_cache
+.pytest_cache
+.ruff_cache
+__pycache__
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv
+venv
+
+# Secrets and local state
+.env
+.astra_cache.db
+
+# Not needed inside the runtime image
+tests/
+datasets/
+benchmark/
+benchmarks/
+docs/
+scripts/
+docker/
+*.md
+Makefile

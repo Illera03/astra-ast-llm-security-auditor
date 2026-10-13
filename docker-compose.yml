@@ -1,0 +1,47 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+    # Enable the GPU on Linux with an NVIDIA card (requires nvidia-container-toolkit).
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # One-shot service that downloads the model into the ollama volume on first run.
+  model-setup:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: ["ollama", "pull", "${ASTRA_MODEL:-qwen2.5-coder:7b}"]
+    restart: "no"
+
+  astra:
+    build: .
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - MODEL_NAME=${ASTRA_MODEL:-qwen2.5-coder:7b}
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+volumes:
+  ollama_data:
